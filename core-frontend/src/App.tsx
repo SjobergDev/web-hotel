@@ -1,11 +1,13 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.scss';
+import CreatePage from './components/create-page/CreatePage';
 
 function App() {
   return (
-    <div className="App">
+    <div className="container">
       <h1>hej</h1>
+      <CreatePage />
     </div>
   );
 }
