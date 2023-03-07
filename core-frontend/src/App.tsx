@@ -4,6 +4,8 @@ import './App.scss';
 import CreatePage from './components/create-page/CreatePage';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import DynamicPageWrapper from './components/DynamicPage/DynamicPageWrapper';
+import Header from './components/header/Header';
+import Footer from './components/footer/Footer';
 
 const router = createBrowserRouter([
   {
@@ -19,11 +21,14 @@ const router = createBrowserRouter([
 function App() {
   return (
 
-    <div className='app-container'>
-      <div className="container">
-        <RouterProvider router={router} />
-      </div>
+    <div className="app-container">
+    <Header />
+
+    <div className="container">
+      <RouterProvider router={router} />
     </div>
+    <Footer />
+  </div>
   );
 }
 
