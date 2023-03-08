@@ -1,16 +1,17 @@
 import React from "react";
 import axios from 'axios';
+import LandingPage from "../LandingPage/LandingPage";
 
 interface IProps {
     id: string
 }
 
-interface IState {
+export interface DynamicPageModel {
     name: string,
     landingPageUrl: string
 }
 
-class DynamicPage extends React.Component<IProps, IState>{
+class DynamicPage extends React.Component<IProps, DynamicPageModel>{
 
     constructor(props: IProps) {
         super(props);
@@ -29,8 +30,9 @@ class DynamicPage extends React.Component<IProps, IState>{
         })
     }
     render() {
-        return <div><h1> {this.state.name}</h1>
-        <img src={this.state.landingPageUrl}></img></div>
+        return <div>
+        <LandingPage pageModel={this.state}/>
+        </div>
     }
 
 }
