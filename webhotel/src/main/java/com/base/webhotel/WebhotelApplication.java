@@ -13,13 +13,15 @@ public class WebhotelApplication {
 		SpringApplication.run(WebhotelApplication.class, args);
 	}
 
-	@Bean
+	// We use the cors-configuration from spring security
+	/*@Bean
 	public WebMvcConfigurer corsConfigurer() {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/**").allowedOrigins("http://localhost:3000");
+				//registry.addMapping("/**");
 			}
 		};
-	}
+	}*/
 }

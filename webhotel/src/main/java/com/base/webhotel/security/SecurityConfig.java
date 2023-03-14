@@ -8,8 +8,13 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import static org.springframework.security.config.Customizer.withDefaults;
+
+import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -31,14 +36,33 @@ public class SecurityConfig {
 	public BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+	@Bean
+	CorsConfigurationSource corsConfigurationSource() {
+	CorsConfiguration configuration = new CorsConfiguration();
+	
+	//This cannot be set to * with allowCredentials set to true
+	configuration.setAllowedOrigins(Arrays.asList("http://localhost:8080,http://localhost:3000"));
+	
+	configuration.setAllowCredentials(true);
+	configuration.setMaxAge(3600L);
+	configuration.addAllowedHeader("*");
+	configuration.addAllowedMethod("*");
+	//* * should be equal to all methods */
+	//configuration.setAllowedMethods(Arrays.asList("GET","POST","OPTIONS","PUT", "DELETE"));
+	UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+	source.registerCorsConfiguration("/**", configuration);
+	return source;
+}
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests(authorize -> authorize
-						.requestMatchers("/api/create-user/**", "/about").hasRole("ADMIN")
-						.anyRequest().authenticated())
+						//.requestMatchers("/api/create-user/**", "/about").hasRole("ADMIN")
+						.requestMatchers("/api/login/**").permitAll()
+						 .anyRequest().authenticated())
 				.httpBasic(withDefaults())
 				.formLogin(withDefaults());
+				http.cors().configurationSource(corsConfigurationSource());
 		http.sessionManagement() //This makes sure that the JSESSIONID can be used to access data
         .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
 		return http.build();
