@@ -2,6 +2,7 @@ package com.base.webhotel.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -66,6 +67,9 @@ public class SecurityConfig {
 				.formLogin(withDefaults());
 		http.sessionManagement() //This makes sure that the JSESSIONID can be used to access data
         .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
+
+		//Fixes so that post request are allowed
+		http.csrf().disable();
 		return http.build();
 	}
 
