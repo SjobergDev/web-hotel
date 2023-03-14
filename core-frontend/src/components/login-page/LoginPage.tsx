@@ -2,10 +2,12 @@ import React from "react";
 import axios from 'axios';
 import './../../App.scss';
 import { Buffer } from "buffer";
+import { Navigate } from "react-router-dom";
 
 interface IState {
     username: string,
     password: string,
+    redirect: boolean
 }
 interface IProps {
 
@@ -17,13 +19,20 @@ class LoginPage extends React.Component<IProps, IState>{
         super(props);
         this.state = {
             username: '',
-            password: ''
+            password: '',
+            redirect: false
         }
         this.handleChange = this.handleChange.bind(this);
 
     }
     render(): React.ReactNode {
+        
+        if(this.state.redirect){
+            return <Navigate to="/edit-page"/>
+        }
+        
         return (
+
             <div className="container">
                 <form className="form-group">
                     <h3>Login to your account</h3>
@@ -39,28 +48,34 @@ class LoginPage extends React.Component<IProps, IState>{
                     </div>
                 </form>
                 <div className="form-group">
-                        <button className="btn btn-primary" type="submit" onClick={this.handleSubmit2.bind(this)}>Login</button>
+                    <button className="btn btn-primary" type="submit" onClick={this.handleSubmit2.bind(this)}>Login</button>
                 </div>
             </div>
         )
     }
     handleSubmit2(event: any) {
-        let url = 'http://localhost:8080/api/hotel-pages/test';
+        let url = 'http://localhost:8080/api/user/login';
         let username = this.state.username;
         let password = this.state.password;
         const base64encodedData = Buffer.from(`${username}:${password}`).toString('base64');
-        fetch(url,{ cache: 'no-cache',headers: new Headers({
-            'Authorization': 'Basic '+ base64encodedData, 
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin' : 'http://localhost:3000',
-            'Access-Control-Allow-Credentials' : 'true'
-        })} )
-        .then(res => res.json()).then(res => {
-            console.log(res);
-            debugger;
-        }
-        );
- 
+        fetch(url, {
+            cache: 'no-cache', headers: new Headers({
+                'Authorization': 'Basic ' + base64encodedData,
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': 'http://localhost:3000',
+                'Access-Control-Allow-Credentials': 'true'
+            })
+        })
+            .then(res => res.json()).then(res => {
+                console.log(res);
+                debugger;
+                localStorage.setItem("user", JSON.stringify(res));
+                
+                this.setState({"redirect": true})
+
+            }
+            );
+
 
 
 

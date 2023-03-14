@@ -53,18 +53,19 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public User loginUser(){
+    public User loginUser(@RequestHeader("Authorization") String basicAuth){
+        
         User user = new User();
-       /* if (authorization != null && authorization.toLowerCase().startsWith("basic")) {
+       if (basicAuth != null && basicAuth.toLowerCase().startsWith("basic")) {
             // Authorization: Basic base64credentials
-            String base64Credentials = authorization.substring("Basic".length()).trim();
+            String base64Credentials = basicAuth.substring("Basic".length()).trim();
             byte[] credDecoded = Base64.getDecoder().decode(base64Credentials);
             String credentials = new String(credDecoded, StandardCharsets.UTF_8);
             // credentials = username:password
             final String[] values = credentials.split(":", 2);
 
             user = userRepository.findUserByUsername(values[0]);
-        } */
+        } 
         return user;
     }
     

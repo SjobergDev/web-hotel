@@ -7,6 +7,7 @@ import DynamicPageWrapper from './components/DynamicPage/DynamicPageWrapper';
 import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
 import LoginPage from './components/login-page/LoginPage';
+import EditPage from './components/edit-page/EditPage';
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,9 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <LoginPage />
+  },{
+    path: "/edit-page",
+    element: <EditPage />
   }
 ]);
 
