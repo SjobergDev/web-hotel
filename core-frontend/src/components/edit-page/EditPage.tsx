@@ -42,7 +42,7 @@ class EditPage extends React.Component<IProps, IState>{
         let url = 'http://localhost:8080/api/hotel-pages/by-user/' + username;
 
      
-        CustomHttpService.get(url).then(res => res.json()).then(res => {
+        CustomHttpService.get<any[]>(url).then(res => {
 
                 console.log(res);
                 if (res?.length && res.length > 0) {

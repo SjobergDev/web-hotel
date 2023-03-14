@@ -1,10 +1,18 @@
+
 class CustomHttpService{
   
-    public static get(url:string): Promise<Response>{
+    public static get<T>(url:string): Promise<T>{
        return fetch(url, {
             cache: 'no-cache', credentials: 'include', headers: this.getHeaders()
+        }).then(response =>{
+            if (!response.ok) {
+                throw new Error(response.statusText)
+              }
+
+            return response.json();
         })
     }
+      
     public static post(url:string, body: any){
         fetch(url,{
             method: 'POST',
