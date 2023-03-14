@@ -1,49 +1,51 @@
 import React from "react";
+import CustomHttpService from "../../services/CustomHttp";
 
-interface IState{
+interface IState {
     name: string,
     landingPageUrl: string,
     username: string
 }
-interface IProps{
+interface IProps {
 
 }
-class EditPage extends React.Component<IProps,IState>{
+class EditPage extends React.Component<IProps, IState>{
 
-    constructor(props: IProps){
+    constructor(props: IProps) {
         super(props);
-        this.setState({
+        this.state = {
             username: '',
             name: '',
             landingPageUrl: ''
-        })
+        };
+
         
+        this.handleChange.bind(this);
+    }
+
+    render() {
+
+        return (
+        <div className="container"><h1>Hello {this?.state?.username}</h1>
+            <h3> Edit {this?.state?.name}</h3>
+            <input name="landingPageUrl" onChange={this.handleChange.bind(this)} className="form-control" type="text" value={this?.state?.landingPageUrl}></input>
+            <button onClick={this.handleSave.bind(this)}>Save</button>
+        </div>)
+    }
+    componentDidMount(){
         this.loadUserPage();
     }
+    loadUserPage() {
 
-    render(){
-        
-        return <div className="container"><h1>edit my paaaaage {this?.state?.username}</h1>
-        {this?.state?.landingPageUrl}</div>
-    }
-
-    loadUserPage(){
-        
         let user = JSON.parse(localStorage.getItem("user") + "");
         const username = user.username;
         let url = 'http://localhost:8080/api/hotel-pages/by-user/' + username;
-        
-        fetch(url, {
-            cache: 'no-cache', credentials: 'include', headers: new Headers({
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': 'http://localhost:3000',
-                'Access-Control-Allow-Credentials': 'true'
-            })
-        })
-            .then(res => res.json()).then(res => {
-                
+
+     
+        CustomHttpService.get(url).then(res => res.json()).then(res => {
+
                 console.log(res);
-                if(res?.length && res.length > 0){
+                if (res?.length && res.length > 0) {
                     const page = res[0];
                     this.setState(
                         res[0]
@@ -54,6 +56,18 @@ class EditPage extends React.Component<IProps,IState>{
                 console.error(e);
             });
 
+    }
+    handleChange(evt: any) {
+        const value = evt.target.value;
+        this.setState({
+            ...this.state,
+
+            [evt.target.name]: value
+        }
+        );
+    }
+    handleSave(evt: any){
+        CustomHttpService.post("http://localhost:8080/api/hotel-pages/",this.state);
     }
 }
 
