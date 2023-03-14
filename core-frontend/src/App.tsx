@@ -6,6 +6,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import DynamicPageWrapper from './components/DynamicPage/DynamicPageWrapper';
 import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
+import LoginPage from './components/login-page/LoginPage';
 
 const router = createBrowserRouter([
   {
@@ -15,6 +16,10 @@ const router = createBrowserRouter([
   {
     path: "/site/:id",
     element: <DynamicPageWrapper />
+  },
+  {
+    path: "/login",
+    element: <LoginPage />
   }
 ]);
 
