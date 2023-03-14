@@ -47,6 +47,7 @@ public class SecurityConfig {
 	configuration.setMaxAge(3600L);
 	configuration.addAllowedHeader("*");
 	configuration.addAllowedMethod("*");
+	
 	//* * should be equal to all methods */
 	//configuration.setAllowedMethods(Arrays.asList("GET","POST","OPTIONS","PUT", "DELETE"));
 	UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
@@ -56,13 +57,13 @@ public class SecurityConfig {
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+		http.cors().configurationSource(corsConfigurationSource());
 		http.authorizeHttpRequests(authorize -> authorize
 						//.requestMatchers("/api/create-user/**", "/about").hasRole("ADMIN")
 						.requestMatchers("/api/login/**").permitAll()
 						 .anyRequest().authenticated())
 				.httpBasic(withDefaults())
 				.formLogin(withDefaults());
-				http.cors().configurationSource(corsConfigurationSource());
 		http.sessionManagement() //This makes sure that the JSESSIONID can be used to access data
         .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
 		return http.build();

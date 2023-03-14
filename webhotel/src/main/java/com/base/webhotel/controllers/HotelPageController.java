@@ -1,7 +1,12 @@
 package com.base.webhotel.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.CriteriaDefinition;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,9 +25,18 @@ public class HotelPageController {
     private MongoTemplate mongoTemplate;
 
     @GetMapping("/{id}")
-    public HotelPage getHotelPage(@PathVariable String id){
+    public HotelPage getHotelPageById(@PathVariable String id){
         
         return mongoTemplate.findById(id, HotelPage.class);
+
+    }
+
+    @GetMapping("/by-user/{username}")
+    public List<HotelPage> getHotelPageByUser(@PathVariable String username){
+        
+        Query q = new Query();
+        q.addCriteria(Criteria.where("username").is(username));
+        return mongoTemplate.find(q,HotelPage.class);
 
     }
 

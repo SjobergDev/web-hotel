@@ -59,7 +59,7 @@ class LoginPage extends React.Component<IProps, IState>{
         let password = this.state.password;
         const base64encodedData = Buffer.from(`${username}:${password}`).toString('base64');
         fetch(url, {
-            cache: 'no-cache', headers: new Headers({
+            cache: 'no-cache', credentials: 'include', headers: new Headers({
                 'Authorization': 'Basic ' + base64encodedData,
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': 'http://localhost:3000',
@@ -67,14 +67,17 @@ class LoginPage extends React.Component<IProps, IState>{
             })
         })
             .then(res => res.json()).then(res => {
-                console.log(res);
-                debugger;
+                console.log(res.headers);
+                console.log(res.header);
+                
                 localStorage.setItem("user", JSON.stringify(res));
                 
                 this.setState({"redirect": true})
 
             }
-            );
+            ).catch(e =>{
+                console.error(e);
+            });
 
 
 
