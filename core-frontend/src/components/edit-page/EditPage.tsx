@@ -1,8 +1,9 @@
 import React from "react";
 import CustomAxiosHttp from "../../services/CustomAxiosHttp";
 import './../../App.scss';
-import { HotelPageComponentEnum, IHotelPage as IState } from "../../model/HotelPageComponent";
+import { HotelPageComponentEnum, IHotelPage as IState, IHotelPageComponent } from "../../model/HotelPageComponent";
 import { ITestimonialsComponent } from "../../model/Testimonials";
+import TestimonialEdit from "../Testimonial/TestimonialEdit";
 
 
 
@@ -33,7 +34,33 @@ class EditPage extends React.Component<IProps, IState>{
             <button onClick={this.handleSave.bind(this)}>Save</button>
 
             <button onClick={this.addTestimonialComponent.bind(this)}className="btn btn-primary btn-lg"> Add testimonial component</button>
+
+            {this.state.components.map(component =>{
+
+                switch(component.type){
+                    case HotelPageComponentEnum[HotelPageComponentEnum.testimonial_component]: {
+                        return <TestimonialEdit testimonialComponent={component} handleEdit={this.handleComponentEdited.bind(this)}></TestimonialEdit>
+                    }default: {
+                        return <h1>No component found</h1>
+                    }
+                }
+            })}
         </div>)
+    }
+
+    handleComponentEdited(editedComponent: IHotelPageComponent){
+        this.setState(
+            {
+                ...this.state,
+                components: this.state.components.map(component =>{
+                    if(component.id === editedComponent.id){
+                        return editedComponent;
+                    }
+                        return component;                    
+                })
+            }
+
+        )
     }
     componentDidMount(){
         this.loadUserPage();
@@ -41,19 +68,25 @@ class EditPage extends React.Component<IProps, IState>{
 
     addTestimonialComponent(){
         const testimonials : ITestimonialsComponent = {
-            id: 'test-id',
+            id: 'id' + new Date().getTime,
             testimonials: [],
             type: HotelPageComponentEnum[HotelPageComponentEnum.testimonial_component]
         }
         testimonials.testimonials.push({
-            id: 'identifier',
+            id: 'id',
             name: 'aron',
             testimonial: 'This goes pretty well',
             country: 'Colombia',
             rating: 10
 
         })
-        this.state.components.push(testimonials);
+        const newEntryArr: IHotelPageComponent[] = [];
+        newEntryArr.push(testimonials);
+        
+        this.setState(
+            {...this.state,
+            components: this.state.components.concat(newEntryArr)}
+        )
     }
     loadUserPage() {
 
