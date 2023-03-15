@@ -39,13 +39,10 @@ class CreatePage extends React.Component<IProps, IState>{
     }
 
     handleSubmit(event: any) {
-        debugger;
         const response =
             axios.post("api/hotel-pages/", this.state).then(result => {
-                debugger;
                 console.log(result)
             }).catch(e => {
-                debugger
             })
 
 

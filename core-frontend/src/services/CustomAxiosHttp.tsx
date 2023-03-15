@@ -4,7 +4,7 @@ import { Buffer } from "buffer";
 const baseUrl = process.env.REACT_APP_API_URL;
 
 axios.interceptors.request.use(config => {
-    console.log("Request sent - method: " + config.method + ", url: " + config.url);
+    console.log("Request sent - method: " + config.method + ", url: " + config.url, "body: ", config.data);
     return config;
 });
 axios.interceptors.response.use(config => {
@@ -17,7 +17,6 @@ class CustomAxiosHttp{
   
     
     public static get<T>(url:string): Promise<T>{
-        debugger;
         return axios.get(baseUrl + url,{withCredentials: true, headers: this.getAxiosHeaders()}).then(res =>{
             return res.data;
         });
@@ -34,7 +33,6 @@ class CustomAxiosHttp{
         headers.Authorization = 'Basic ' + base64encodedData;
         const config = {withCredentials: true, headers: headers}
         return axios.get(url,config).then(res =>{
-            debugger;
             localStorage.setItem("user", JSON.stringify(res.data));
             return res;
         })

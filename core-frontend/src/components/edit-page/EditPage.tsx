@@ -1,12 +1,11 @@
 import React from "react";
 import CustomAxiosHttp from "../../services/CustomAxiosHttp";
-import CustomHttpService from "../../services/CustomHttp";
+import './../../App.scss';
+import { HotelPageComponentEnum, IHotelPage as IState } from "../../model/HotelPageComponent";
+import { ITestimonialsComponent } from "../../model/Testimonials";
 
-interface IState {
-    name: string,
-    landingPageUrl: string,
-    username: string
-}
+
+
 interface IProps {
 
 }
@@ -17,7 +16,8 @@ class EditPage extends React.Component<IProps, IState>{
         this.state = {
             username: '',
             name: '',
-            landingPageUrl: ''
+            landingPageUrl: '',
+            components: []
         };
 
         
@@ -31,10 +31,29 @@ class EditPage extends React.Component<IProps, IState>{
             <h3> Edit {this?.state?.name}</h3>
             <input name="landingPageUrl" onChange={this.handleChange.bind(this)} className="form-control" type="text" value={this?.state?.landingPageUrl}></input>
             <button onClick={this.handleSave.bind(this)}>Save</button>
+
+            <button onClick={this.addTestimonialComponent.bind(this)}className="btn btn-primary btn-lg"> Add testimonial component</button>
         </div>)
     }
     componentDidMount(){
         this.loadUserPage();
+    }
+
+    addTestimonialComponent(){
+        const testimonials : ITestimonialsComponent = {
+            id: 'test-id',
+            testimonials: [],
+            type: HotelPageComponentEnum[HotelPageComponentEnum.testimonial_component]
+        }
+        testimonials.testimonials.push({
+            id: 'identifier',
+            name: 'aron',
+            testimonial: 'This goes pretty well',
+            country: 'Colombia',
+            rating: 10
+
+        })
+        this.state.components.push(testimonials);
     }
     loadUserPage() {
 

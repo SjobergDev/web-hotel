@@ -1,5 +1,8 @@
 package com.base.webhotel.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.data.annotation.Id;
 
 import lombok.Data;
@@ -11,4 +14,5 @@ public class HotelPage {
     private String name;
     private String landingPageUrl;
     private String username;
+    List<HotelPageComponent> components = new ArrayList<>();
 }

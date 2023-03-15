@@ -16,6 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.base.webhotel.model.HotelPage;
+import com.base.webhotel.model.HotelPageComponent;
+import com.base.webhotel.model.Testimonial;
+import com.base.webhotel.model.TestimonialComponent;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
 @RequestMapping("/api/hotel-pages/")
@@ -41,9 +46,14 @@ public class HotelPageController {
     }
 
     @PostMapping("/")
-    public HotelPage saveHotelPage(@RequestBody HotelPage hotelPage){
-        return mongoTemplate.save(hotelPage);
-
+    public HotelPage saveHotelPage(@RequestBody String hotelPageString) throws Exception{
+        ObjectMapper mapper = new ObjectMapper();
+        
+        try {
+            HotelPage hotelPage = mapper.readValue(hotelPageString,HotelPage.class);    
+            return mongoTemplate.save(hotelPage);
+        } catch (Exception e) {
+           throw e;
+        }
     }
-
 }
