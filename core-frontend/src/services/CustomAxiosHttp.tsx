@@ -1,6 +1,8 @@
 import axios from "axios";
 import { Buffer } from "buffer";
 
+const baseUrl = process.env.REACT_APP_API_URL;
+
 axios.interceptors.request.use(config => {
     console.log("Request sent - method: " + config.method + ", url: " + config.url);
     return config;
@@ -15,17 +17,18 @@ class CustomAxiosHttp{
   
     
     public static get<T>(url:string): Promise<T>{
-        return axios.get(url,{withCredentials: true, headers: this.getAxiosHeaders()}).then(res =>{
+        debugger;
+        return axios.get(baseUrl + url,{withCredentials: true, headers: this.getAxiosHeaders()}).then(res =>{
             return res.data;
         });
     }
       
     public static post(url:string, data: any){
-        return axios.post(url,data,{withCredentials: true, headers: this.getAxiosHeaders()});
+        return axios.post(baseUrl + url,data,{withCredentials: true, headers: this.getAxiosHeaders()});
     }
 
     public static loginWithBasicAuth(username:string,password:string){
-        const url = 'http://localhost:8080/api/user/login';
+        const url = baseUrl + 'api/user/login';
         const base64encodedData = Buffer.from(`${username}:${password}`).toString('base64');
         const headers: any = this.getAxiosHeaders() ;
         headers.Authorization = 'Basic ' + base64encodedData;

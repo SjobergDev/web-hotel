@@ -24,7 +24,7 @@ class DynamicPage extends React.Component<IProps, DynamicPageModel>{
     }
 
     initPageData() {
-        CustomAxiosHttp.get<DynamicPageModel>("http://localhost:8080/api/hotel-pages/" + this.props.id).then(result => {
+        CustomAxiosHttp.get<DynamicPageModel>("api/hotel-pages/" + this.props.id).then(result => {
             this.setState(result);
         }).catch(e => {
             debugger

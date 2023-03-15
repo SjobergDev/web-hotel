@@ -40,7 +40,7 @@ class EditPage extends React.Component<IProps, IState>{
 
         let user = JSON.parse(localStorage.getItem("user") + "");
         const username = user.username;
-        let url = 'http://localhost:8080/api/hotel-pages/by-user/' + username;
+        let url = 'api/hotel-pages/by-user/' + username;
 
      
         CustomAxiosHttp.get<any[]>(url).then(res => {
@@ -68,7 +68,7 @@ class EditPage extends React.Component<IProps, IState>{
         );
     }
     handleSave(evt: any){
-        CustomAxiosHttp.post("http://localhost:8080/api/hotel-pages/",this.state);
+        CustomAxiosHttp.post("api/hotel-pages/",this.state);
     }
 }
 
