@@ -1,8 +1,7 @@
 import React from "react";
-import axios from 'axios';
 import './../../App.scss';
-import { Buffer } from "buffer";
 import { Navigate } from "react-router-dom";
+import CustomAxiosHttp from "../../services/CustomAxiosHttp";
 
 interface IState {
     username: string,
@@ -57,31 +56,10 @@ class LoginPage extends React.Component<IProps, IState>{
         let url = 'http://localhost:8080/api/user/login';
         let username = this.state.username;
         let password = this.state.password;
-        const base64encodedData = Buffer.from(`${username}:${password}`).toString('base64');
-        fetch(url, {
-            cache: 'no-cache', credentials: 'include', headers: new Headers({
-                'Authorization': 'Basic ' + base64encodedData,
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': 'http://localhost:3000',
-                'Access-Control-Allow-Credentials': 'true'
-            })
-        })
-            .then(res => res.json()).then(res => {
-                console.log(res.headers);
-                console.log(res.header);
-                
-                localStorage.setItem("user", JSON.stringify(res));
-                
-                this.setState({"redirect": true})
-
-            }
-            ).catch(e =>{
-                console.error(e);
-            });
-
-
-
-
+        CustomAxiosHttp.loginWithBasicAuth(username,password).then(res => {
+            this.setState({"redirect": true})
+        }
+            )
     }
 
 

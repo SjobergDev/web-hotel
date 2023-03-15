@@ -1,7 +1,7 @@
 import React from "react";
 import axios from 'axios';
 import LandingPage from "../LandingPage/LandingPage";
-import CustomHttpService from "../../services/CustomHttp";
+import CustomAxiosHttp from "../../services/CustomAxiosHttp";
 
 interface IProps {
     id: string
@@ -24,7 +24,7 @@ class DynamicPage extends React.Component<IProps, DynamicPageModel>{
     }
 
     initPageData() {
-        CustomHttpService.get<DynamicPageModel>("http://localhost:8080/api/hotel-pages/" + this.props.id).then(result => {
+        CustomAxiosHttp.get<DynamicPageModel>("http://localhost:8080/api/hotel-pages/" + this.props.id).then(result => {
             this.setState(result);
         }).catch(e => {
             debugger

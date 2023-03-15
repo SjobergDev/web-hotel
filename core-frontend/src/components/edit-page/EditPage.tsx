@@ -1,4 +1,5 @@
 import React from "react";
+import CustomAxiosHttp from "../../services/CustomAxiosHttp";
 import CustomHttpService from "../../services/CustomHttp";
 
 interface IState {
@@ -42,7 +43,7 @@ class EditPage extends React.Component<IProps, IState>{
         let url = 'http://localhost:8080/api/hotel-pages/by-user/' + username;
 
      
-        CustomHttpService.get<any[]>(url).then(res => {
+        CustomAxiosHttp.get<any[]>(url).then(res => {
 
                 console.log(res);
                 if (res?.length && res.length > 0) {
@@ -67,7 +68,7 @@ class EditPage extends React.Component<IProps, IState>{
         );
     }
     handleSave(evt: any){
-        CustomHttpService.post("http://localhost:8080/api/hotel-pages/",this.state);
+        CustomAxiosHttp.post("http://localhost:8080/api/hotel-pages/",this.state);
     }
 }
 
