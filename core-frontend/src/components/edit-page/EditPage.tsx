@@ -29,8 +29,8 @@ class EditPage extends React.Component<IProps, IState>{
     render() {
 
         return (
-        <div className="container"><h1>Hello {this?.state?.username}</h1>
-            <h3> Edit {this?.state?.name}</h3>
+        <div className="container">
+            <h1 className="text-center"> Edit {this?.state?.name}</h1>
             <input name="landingPageUrl" onChange={this.handleChange.bind(this)} className="form-control" type="text" value={this?.state?.landingPageUrl}></input>
             <button onClick={this.handleSave.bind(this)}>Save</button>
 

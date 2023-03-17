@@ -2,14 +2,13 @@
 
 .footer{
     background-color: $header-color;
-    position: fixed;
     bottom: 0px;
     left: 0px;
     margin: 0px;
     height: 120px;
     width: 100%;
     vertical-align: center;
-    flex-direction: column
+    flex-direction: column;
 }
 
 a.nav-item{

@@ -17,7 +17,7 @@ class TestimonialEdit extends React.Component<IProps, IState>{
     render(): React.ReactNode {
         return (
             <div>
-                <h3>Edit testimonial</h3>
+                <h3>Testimonials</h3>
 
                 {this.state?.testimonials.map((testimonial, index) => {
                     return <div>

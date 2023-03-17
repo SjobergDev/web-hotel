@@ -6,3 +6,22 @@
   padding-bottom: 10px;
   padding-top: 10px;
 }
+
+.component-container{
+  @extend .shadow;
+  @extend .rounded;
+  @extend .p-4;
+  @extend .mt-4;
+  @extend .mb-4;
+}
+.body-container{
+  flex: 1;
+  @extend .mt-4;
+  @extend .mb-4;
+}
+.app-container{
+  min-height: 100vh;
+  @extend .d-flex;
+  flex-direction: column;
+  margin:0;
+}

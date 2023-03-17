@@ -21,7 +21,7 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <LoginPage />
-  },{
+  }, {
     path: "/edit-page",
     element: <EditPage />
   }
@@ -31,13 +31,13 @@ function App() {
   return (
 
     <div className="app-container">
-    <Header />
+      <Header />
 
-    <div className="">
-      <RouterProvider router={router} />
+      <div  className="body-container">
+        <RouterProvider router={router} />
+      </div>
+      <Footer />
     </div>
-    <Footer />
-  </div>
   );
 }
 
