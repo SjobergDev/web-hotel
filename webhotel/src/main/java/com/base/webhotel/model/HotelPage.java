@@ -12,7 +12,6 @@ public class HotelPage {
     
     @Id
     private String name;
-    private String landingPageUrl;
     private String username;
     List<HotelPageComponent> components = new ArrayList<>();
 }

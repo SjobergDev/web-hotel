@@ -5,6 +5,8 @@ import { HotelPageComponentEnum, IHotelPage as IState, IHotelPageComponent } fro
 import { ITestimonialsComponent } from "../../model/Testimonials";
 import TestimonialEdit from "../Testimonial/TestimonialEdit";
 import HotelPageComponentWrapper from "../wrapper/HotelPageComponentWrapper";
+import { ILandingPageMediaComponent } from "../../model/LandingPageMediaComponent";
+import LandingPageMediaEdit from "../LandingPage/LandingPageMediaEdit";
 
 
 
@@ -18,69 +20,93 @@ class EditPage extends React.Component<IProps, IState>{
         this.state = {
             username: '',
             name: '',
-            landingPageUrl: '',
             components: []
         };
 
-        
+
         this.handleChange.bind(this);
+        this.addNewComponentInternal.bind(this);
     }
 
     render() {
 
         return (
-        <div className="container">
-            <h1 className="text-center"> Edit {this?.state?.name}</h1>
-            <input name="landingPageUrl" onChange={this.handleChange.bind(this)} className="form-control" type="text" value={this?.state?.landingPageUrl}></input>
-            <button onClick={this.handleSave.bind(this)}>Save</button>
+            <div className="container">
+                <h1 className="text-center"> Edit {this?.state?.name}</h1>
+                <button onClick={this.handleSave.bind(this)}>Save</button>
 
-            <button onClick={this.addTestimonialComponent.bind(this)}className="btn btn-primary btn-lg"> Add testimonial component</button>
+                <button onClick={this.addTestimonialComponent.bind(this)} className="btn btn-primary btn-lg"> Add testimonial component</button>
+                <button onClick={this.addLandingPageComponent.bind(this)} className="btn btn-primary btn-lg"> Add landing page component</button>
 
-            {this.state.components.map((component) =>{
+                {this.state.components.map((component) => {
 
-                switch(component.type){
-                    case HotelPageComponentEnum[HotelPageComponentEnum.testimonial_component]: {
-                        return <HotelPageComponentWrapper key={component.id} component={component} handleDelete={this.handleComponentRemoved.bind(this)}><TestimonialEdit testimonialComponent={component} handleEdit={this.handleComponentEdited.bind(this)}></TestimonialEdit></HotelPageComponentWrapper>
-                    }default: {
-                        return <h1>No component found</h1>
+                    switch (component.type) {
+                        case HotelPageComponentEnum[HotelPageComponentEnum.testimonial_component]: {
+                            return (
+                                <HotelPageComponentWrapper key={component.id} component={component}
+                                    handleDelete={this.handleComponentRemoved.bind(this)} handleEdit={this.handleComponentEdited.bind(this)}>
+                                    <TestimonialEdit testimonialComponent={component} handleEdit={this.handleComponentEdited.bind(this)}></TestimonialEdit>
+                                </HotelPageComponentWrapper>
+                            )
+
+                        }case HotelPageComponentEnum[HotelPageComponentEnum.landing_page_media_component]: {
+                            return (
+                                <HotelPageComponentWrapper key={component.id} component={component}
+                                    handleDelete={this.handleComponentRemoved.bind(this)} handleEdit={this.handleComponentEdited.bind(this)} >
+                                    <LandingPageMediaEdit component={component} handleEdit={this.handleComponentEdited.bind(this)}></LandingPageMediaEdit>
+                                </HotelPageComponentWrapper>
+                            )
+
+                        } default: {
+                            return <h1>No component found</h1>
+                        }
                     }
-                }
-            })}
-        </div>)
+                })}
+            </div>)
     }
-    handleComponentRemoved(componentToRemove: IHotelPageComponent){
+    handleComponentRemoved(componentToRemove: IHotelPageComponent) {
         debugger;
         this.setState(
             {
                 ...this.state,
-                components: this.state.components.filter(component =>{
+                components: this.state.components.filter(component => {
                     return component.id !== componentToRemove.id
                 })
             }
         )
 
     }
-    handleComponentEdited(editedComponent: IHotelPageComponent){
+    handleComponentEdited(editedComponent: IHotelPageComponent) {
+        debugger;
         this.setState(
             {
                 ...this.state,
-                components: this.state.components.map(component =>{
-                    if(component.id === editedComponent.id){
+                components: this.state.components.map(component => {
+                    if (component.id === editedComponent.id) {
                         return editedComponent;
                     }
-                        return component;                    
+                    return component;
                 })
             }
 
         )
     }
-    componentDidMount(){
+    componentDidMount() {
         this.loadUserPage();
     }
 
-    addTestimonialComponent(){
-        const testimonials : ITestimonialsComponent = {
-            id: 'ID_' + new Date().getTime(),
+    addLandingPageComponent() {
+        const landingPageMediaComponent: ILandingPageMediaComponent = {
+            id: this.generateComponentId(),
+            type: HotelPageComponentEnum[HotelPageComponentEnum.landing_page_media_component],
+            landingPageUrl: ''
+        }
+
+        this.addNewComponentInternal(landingPageMediaComponent);
+    }
+    addTestimonialComponent() {
+        const testimonials: ITestimonialsComponent = {
+            id: this.generateComponentId(),
             testimonials: [],
             type: HotelPageComponentEnum[HotelPageComponentEnum.testimonial_component]
         }
@@ -92,13 +118,22 @@ class EditPage extends React.Component<IProps, IState>{
             rating: 10
 
         })
+        this.addNewComponentInternal(testimonials);
+    }
+
+    addNewComponentInternal(component: IHotelPageComponent) {
         const newEntryArr: IHotelPageComponent[] = [];
-        newEntryArr.push(testimonials);
-        
+        newEntryArr.push(component);
+
         this.setState(
-            {...this.state,
-            components: this.state.components.concat(newEntryArr)}
+            {
+                ...this.state,
+                components: this.state.components.concat(newEntryArr)
+            }
         )
+    }
+    generateComponentId() {
+        return 'ID_' + new Date().getTime();
     }
     loadUserPage() {
 
@@ -106,19 +141,19 @@ class EditPage extends React.Component<IProps, IState>{
         const username = user.username;
         let url = 'api/hotel-pages/by-user/' + username;
 
-     
+
         CustomAxiosHttp.get<any[]>(url).then(res => {
 
-                console.log(res);
-                if (res?.length && res.length > 0) {
-                    this.setState(
-                        res[0]
-                    );
-                }
+            console.log(res);
+            if (res?.length && res.length > 0) {
+                this.setState(
+                    res[0]
+                );
             }
-            ).catch(e => {
-                console.error(e);
-            });
+        }
+        ).catch(e => {
+            console.error(e);
+        });
 
     }
     handleChange(evt: any) {
@@ -130,8 +165,8 @@ class EditPage extends React.Component<IProps, IState>{
         }
         );
     }
-    handleSave(evt: any){
-        CustomAxiosHttp.post("api/hotel-pages/",this.state);
+    handleSave(evt: any) {
+        CustomAxiosHttp.post("api/hotel-pages/", this.state);
     }
 }
 

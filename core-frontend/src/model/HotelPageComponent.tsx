@@ -4,13 +4,13 @@ export interface IHotelPageComponent{
     //class: string
 }
 export enum HotelPageComponentEnum{
-    testimonial_component
+    testimonial_component,
+    landing_page_media_component
 }
 
 export interface IHotelPage{
     
     name: string,
-    landingPageUrl: string,
     username: string
     components: IHotelPageComponent[];
 }

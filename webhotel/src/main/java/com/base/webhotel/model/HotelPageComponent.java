@@ -12,7 +12,8 @@ import lombok.Data;
   include = JsonTypeInfo.As.PROPERTY, 
   property = "type")
 @JsonSubTypes({ 
-  @Type(value = TestimonialComponent.class, name = "testimonial_component")
+  @Type(value = TestimonialComponent.class, name = "testimonial_component"),
+  @Type(value = LandingPageMediaComponent.class, name = "landing_page_media_component")
 })
 @Data
 public abstract class HotelPageComponent {

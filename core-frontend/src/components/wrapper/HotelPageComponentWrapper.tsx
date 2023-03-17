@@ -2,7 +2,7 @@ import { IHotelPageComponent } from "../../model/HotelPageComponent";
 import './../../App.scss';
 import './HotelPageComponentWrapper.scss';
 
-function HotelPageComponentWrapper(props: { children: any, component: IHotelPageComponent, handleDelete: any }) {
+function HotelPageComponentWrapper(props: { children: any, component: IHotelPageComponent, handleDelete: any, handleEdit: (editedComponent: IHotelPageComponent) => void }) {
     return (<div className="component-container">
         <div className="relative">
             <div className="d-flex flex-row-reverse component-tool-wrapper" >
