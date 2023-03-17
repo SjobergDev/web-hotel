@@ -21,7 +21,6 @@ class LandingPageMediaEdit extends React.Component<IProps, IState>{
         this.setState(this.props.component);
     }
     handleChange(evt: any) {
-        debugger;
         const value = evt.target.value;
         this.setState({
             ...this.state,

@@ -65,7 +65,6 @@ class EditPage extends React.Component<IProps, IState>{
             </div>)
     }
     handleComponentRemoved(componentToRemove: IHotelPageComponent) {
-        debugger;
         this.setState(
             {
                 ...this.state,
@@ -77,7 +76,6 @@ class EditPage extends React.Component<IProps, IState>{
 
     }
     handleComponentEdited(editedComponent: IHotelPageComponent) {
-        debugger;
         this.setState(
             {
                 ...this.state,

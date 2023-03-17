@@ -1,38 +1,40 @@
 import React from "react";
 import axios from 'axios';
-import LandingPage from "../LandingPage/LandingPage";
 import CustomAxiosHttp from "../../services/CustomAxiosHttp";
+import { HotelPageComponentEnum, IHotelPage, IHotelPage as IState} from "../../model/HotelPageComponent";
+import LandingPageMediaDisplay from "../LandingPage/LandingPageMediaDisplay";
+import { ILandingPageMediaComponent } from "../../model/LandingPageMediaComponent";
 
-interface IProps {
+interface IProps{
     id: string
 }
 
-export interface DynamicPageModel {
-    name: string,
-    landingPageUrl: string
-}
-
-class DynamicPage extends React.Component<IProps, DynamicPageModel>{
+class DynamicPage extends React.Component<IProps, IState>{
 
     constructor(props: IProps) {
         super(props);
-        this.state = {
-            name: '',
-            landingPageUrl: ''
-        }
+        this.setState({});
         this.initPageData();
     }
 
     initPageData() {
-        CustomAxiosHttp.get<DynamicPageModel>("api/hotel-pages/" + this.props.id).then(result => {
+        CustomAxiosHttp.get<IHotelPage>("api/hotel-pages/" + this.props.id).then(result => {
             this.setState(result);
         }).catch(e => {
-            debugger
+            console.log(e);
         })
     }
     render() {
         return <div>
-        <LandingPage pageModel={this.state}/>
+            {this.state?.components?.map(comp => {
+                switch(comp.type){
+                    case HotelPageComponentEnum[HotelPageComponentEnum.landing_page_media_component]: {
+                        return <LandingPageMediaDisplay component={comp as ILandingPageMediaComponent}/>
+                    }default: {
+                        return <h1>cant find component type {comp.type}</h1>
+                    }
+                }
+            })}
         </div>
     }
 
