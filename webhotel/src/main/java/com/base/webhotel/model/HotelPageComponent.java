@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 
 import lombok.Data;
 
+//https://www.baeldung.com/jackson-inheritance
 @JsonTypeInfo(
   use = JsonTypeInfo.Id.NAME, 
   include = JsonTypeInfo.As.PROPERTY, 

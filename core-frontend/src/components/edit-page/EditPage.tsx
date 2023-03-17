@@ -4,6 +4,7 @@ import './../../App.scss';
 import { HotelPageComponentEnum, IHotelPage as IState, IHotelPageComponent } from "../../model/HotelPageComponent";
 import { ITestimonialsComponent } from "../../model/Testimonials";
 import TestimonialEdit from "../Testimonial/TestimonialEdit";
+import HotelPageComponentWrapper from "../wrapper/HotelPageComponentWrapper";
 
 
 
@@ -35,11 +36,11 @@ class EditPage extends React.Component<IProps, IState>{
 
             <button onClick={this.addTestimonialComponent.bind(this)}className="btn btn-primary btn-lg"> Add testimonial component</button>
 
-            {this.state.components.map(component =>{
+            {this.state.components.map((component) =>{
 
                 switch(component.type){
                     case HotelPageComponentEnum[HotelPageComponentEnum.testimonial_component]: {
-                        return <TestimonialEdit testimonialComponent={component} handleEdit={this.handleComponentEdited.bind(this)}></TestimonialEdit>
+                        return <HotelPageComponentWrapper key={component.id} component={component} handleDelete={this.handleComponentRemoved.bind(this)}><TestimonialEdit testimonialComponent={component} handleEdit={this.handleComponentEdited.bind(this)}></TestimonialEdit></HotelPageComponentWrapper>
                     }default: {
                         return <h1>No component found</h1>
                     }
@@ -47,7 +48,18 @@ class EditPage extends React.Component<IProps, IState>{
             })}
         </div>)
     }
+    handleComponentRemoved(componentToRemove: IHotelPageComponent){
+        debugger;
+        this.setState(
+            {
+                ...this.state,
+                components: this.state.components.filter(component =>{
+                    return component.id !== componentToRemove.id
+                })
+            }
+        )
 
+    }
     handleComponentEdited(editedComponent: IHotelPageComponent){
         this.setState(
             {
@@ -68,7 +80,7 @@ class EditPage extends React.Component<IProps, IState>{
 
     addTestimonialComponent(){
         const testimonials : ITestimonialsComponent = {
-            id: 'id' + new Date().getTime,
+            id: 'ID_' + new Date().getTime(),
             testimonials: [],
             type: HotelPageComponentEnum[HotelPageComponentEnum.testimonial_component]
         }
@@ -99,7 +111,6 @@ class EditPage extends React.Component<IProps, IState>{
 
                 console.log(res);
                 if (res?.length && res.length > 0) {
-                    const page = res[0];
                     this.setState(
                         res[0]
                     );
