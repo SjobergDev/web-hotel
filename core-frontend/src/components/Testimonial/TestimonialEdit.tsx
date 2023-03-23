@@ -1,7 +1,7 @@
 import React, { MouseEventHandler } from "react";
 import './../../App.scss';
 import { IHotelPageComponent } from "../../model/HotelPageComponent";
-import { ITestimonialsComponent as IState, ITestimonialsComponent } from "../../model/Testimonials";
+import { ITestimonial, ITestimonialsComponent as IState, ITestimonialsComponent } from "../../model/Testimonials";
 
 interface IProps {
     testimonialComponent: IHotelPageComponent
@@ -28,16 +28,41 @@ class TestimonialEdit extends React.Component<IProps, IState>{
 
                             </div>
                             <div className="form-group">
-                                <label htmlFor="password">country</label>
+                                <label htmlFor="password">Country</label>
                                 <input className="form-control" type="text" id="country" name="country" placeholder="name@example.com" value={testimonial.country} onChange={this.handleChange.bind(this)} />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="rating">Rating</label>
+                                <input className="form-control" type="number" id="rating" name="rating" placeholder="name@example.com" value={testimonial.rating} onChange={this.handleChange.bind(this)} />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="password">Testimonial</label>
+                                <textarea className="form-control" id="testimonial" name="testimonial" placeholder="name@example.com" value={testimonial.testimonial} onChange={this.handleChange.bind(this)} />
                             </div>
                         </form>
                     </div>
                 })}
-
-                <button className="btn btn-secondary" onClick={this.handleOnSave.bind(this)}>Save testimonial</button>
+                <button className="btn btn-secondary" onClick={this.handleOnAdd.bind(this)}>Add testimonial</button>
+                <button className="btn btn-secondary" onClick={this.handleOnSave.bind(this)}>Save testimonials</button>
             </div>
         )
+    }
+    
+    handleOnAdd(): MouseEventHandler<HTMLButtonElement> | void {
+        
+        const newTestimonial: ITestimonial = {
+            id: new Date().getTime() + "",
+            country:  "",
+            name: "",
+            rating: 10,
+            testimonial: ""
+
+        }
+        
+        this.setState({
+            ...this.state,
+            testimonials : this.state.testimonials.concat(newTestimonial)
+        })
     }
     handleOnSave(): MouseEventHandler<HTMLButtonElement> | void {
         this.props.handleEdit(this.state);
