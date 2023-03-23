@@ -9,7 +9,6 @@ interface IProps {
 
 const TestimonialDisplay: React.FC<IProps> = ({ component }) => {
   return (
-    <div className='container' >
     <div className="row row-cols-1 row-cols-md-3 g-4">
       {component.testimonials.map((testimonial) => (
 
@@ -37,7 +36,6 @@ const TestimonialDisplay: React.FC<IProps> = ({ component }) => {
           </div>
         </div>
       ))}
-    </div>
     </div>
   );
 };
