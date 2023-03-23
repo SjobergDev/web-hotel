@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.base.webhotel.model.Role;
-import com.base.webhotel.model.User;
-import com.base.webhotel.model.UserRepository;
-import com.base.webhotel.model.UserRole;
+import com.base.webhotel.model.repositories.UserRepository;
+import com.base.webhotel.model.user.Role;
+import com.base.webhotel.model.user.User;
+import com.base.webhotel.model.user.UserRole;
 
 @RestController
 @RequestMapping("/api/user")

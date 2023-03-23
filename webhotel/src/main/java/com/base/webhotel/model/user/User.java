@@ -1,4 +1,4 @@
-package com.base.webhotel.model;
+package com.base.webhotel.model.user;
 
 import java.util.Collection;
 import java.util.HashSet;

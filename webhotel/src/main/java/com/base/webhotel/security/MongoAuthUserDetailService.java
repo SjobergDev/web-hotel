@@ -10,9 +10,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.security.core.userdetails.User;
 
-import com.base.webhotel.model.UserRepository;
+import com.base.webhotel.model.repositories.UserRepository;
+
+import org.springframework.security.core.userdetails.User;
 
 @Service
 public class MongoAuthUserDetailService implements UserDetailsService {
@@ -23,7 +24,7 @@ public class MongoAuthUserDetailService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
 
-        com.base.webhotel.model.User user = userRepository.findUserByUsername(userName);
+        com.base.webhotel.model.user.User user = userRepository.findUserByUsername(userName);
         
 
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();

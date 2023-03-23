@@ -1,5 +1,5 @@
 
-package com.base.webhotel.model;
+package com.base.webhotel.model.user;
 
 import org.springframework.security.core.GrantedAuthority;
 

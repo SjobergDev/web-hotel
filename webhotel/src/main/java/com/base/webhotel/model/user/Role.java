@@ -1,4 +1,4 @@
-package com.base.webhotel.model;
+package com.base.webhotel.model.user;
 
 public class Role {
     private String name;
