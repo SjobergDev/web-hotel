@@ -4,7 +4,7 @@ import './../../App.scss';
 import { HotelPageComponentEnum, IHotelPage as IState, IHotelPageComponent } from "../../model/HotelPageComponent";
 import { ITestimonialsComponent } from "../../model/Testimonials";
 import TestimonialEdit from "../Testimonial/TestimonialEdit";
-import HotelPageComponentWrapper from "../wrapper/HotelPageComponentWrapper";
+import HotelPageEditComponentWrapper from "../wrapper/HotelPageEditComponentWrapper";
 import { ILandingPageMediaComponent } from "../../model/LandingPageMediaComponent";
 import LandingPageMediaEdit from "../LandingPage/LandingPageMediaEdit";
 
@@ -43,18 +43,18 @@ class EditPage extends React.Component<IProps, IState>{
                     switch (component.type) {
                         case HotelPageComponentEnum[HotelPageComponentEnum.testimonial_component]: {
                             return (
-                                <HotelPageComponentWrapper key={component.id} component={component}
+                                <HotelPageEditComponentWrapper key={component.id} component={component} handleMove={this.handleComponentMove.bind(this)}
                                     handleDelete={this.handleComponentRemoved.bind(this)} handleEdit={this.handleComponentEdited.bind(this)}>
                                     <TestimonialEdit testimonialComponent={component} handleEdit={this.handleComponentEdited.bind(this)}></TestimonialEdit>
-                                </HotelPageComponentWrapper>
+                                </HotelPageEditComponentWrapper>
                             )
 
                         }case HotelPageComponentEnum[HotelPageComponentEnum.landing_page_media_component]: {
                             return (
-                                <HotelPageComponentWrapper key={component.id} component={component}
-                                    handleDelete={this.handleComponentRemoved.bind(this)} handleEdit={this.handleComponentEdited.bind(this)} >
+                                <HotelPageEditComponentWrapper handleMove={this.handleComponentMove.bind(this)} key={component.id} component={component}
+                                    handleDelete={this.handleComponentRemoved.bind(this)} handleEdit={this.handleComponentEdited.bind(this)}  >
                                     <LandingPageMediaEdit component={component} handleEdit={this.handleComponentEdited.bind(this)}></LandingPageMediaEdit>
-                                </HotelPageComponentWrapper>
+                                </HotelPageEditComponentWrapper>
                             )
 
                         } default: {
@@ -87,6 +87,24 @@ class EditPage extends React.Component<IProps, IState>{
                 })
             }
 
+        )
+    }
+  
+    private handleComponentMove(component: IHotelPageComponent, up: boolean) {
+        let index = 0;
+        const newArr = this.state.components.filter((c,i) => {
+             index = i;
+            return component.id !== c.id
+        });
+        debugger;
+        const upDownModifier = up ? -1 : 1;
+        newArr.splice(index + upDownModifier, 0, component);
+        console.log(newArr)
+        this.setState(
+            {
+                ...this.state,
+                components: newArr
+            }
         )
     }
     componentDidMount() {
