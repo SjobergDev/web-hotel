@@ -1,5 +1,6 @@
-package com.base.webhotel.model;
+package com.base.webhotel.model.page_components;
 
+import com.base.webhotel.model.TestimonialComponent;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;

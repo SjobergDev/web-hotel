@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.data.annotation.Id;
 
+import com.base.webhotel.model.page_components.HotelPageComponent;
+
 import lombok.Data;
 
 @Data
