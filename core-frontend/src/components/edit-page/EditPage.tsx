@@ -7,6 +7,8 @@ import TestimonialEdit from "../Testimonial/TestimonialEdit";
 import HotelPageEditComponentWrapper from "../wrapper/HotelPageEditComponentWrapper";
 import { ILandingPageMediaComponent } from "../../model/LandingPageMediaComponent";
 import LandingPageMediaEdit from "../LandingPage/LandingPageMediaEdit";
+import { IMediaTextComponent } from "../../model/MediaTextComponent";
+import MediaTextEditComponent from "../media-text/MediaTextEditComponent";
 
 
 
@@ -37,6 +39,7 @@ class EditPage extends React.Component<IProps, IState>{
 
                 <button onClick={this.addTestimonialComponent.bind(this)} className="btn btn-primary btn-lg"> Add testimonial component</button>
                 <button onClick={this.addLandingPageComponent.bind(this)} className="btn btn-primary btn-lg"> Add landing page component</button>
+                <button onClick={this.addMediaTextComponent.bind(this)} className="btn btn-primary btn-lg"> Add media text component</button>
 
                 {this.state.components.map((component) => {
 
@@ -54,6 +57,14 @@ class EditPage extends React.Component<IProps, IState>{
                                 <HotelPageEditComponentWrapper handleMove={this.handleComponentMove.bind(this)} key={component.id} component={component}
                                     handleDelete={this.handleComponentRemoved.bind(this)} handleEdit={this.handleComponentEdited.bind(this)}  >
                                     <LandingPageMediaEdit component={component} handleEdit={this.handleComponentEdited.bind(this)}></LandingPageMediaEdit>
+                                </HotelPageEditComponentWrapper>
+                            )
+
+                        }case HotelPageComponentEnum[HotelPageComponentEnum.media_text_component]: {
+                            return (
+                                <HotelPageEditComponentWrapper handleMove={this.handleComponentMove.bind(this)} key={component.id} component={component}
+                                    handleDelete={this.handleComponentRemoved.bind(this)} handleEdit={this.handleComponentEdited.bind(this)}  >
+                                    <MediaTextEditComponent component={component} handleEdit={this.handleComponentEdited.bind(this)} />
                                 </HotelPageEditComponentWrapper>
                             )
 
@@ -111,6 +122,16 @@ class EditPage extends React.Component<IProps, IState>{
         this.loadUserPage();
     }
 
+    addMediaTextComponent(){
+        const landingPageMediaComponent: IMediaTextComponent = {
+            id: this.generateComponentId(),
+            type: HotelPageComponentEnum[HotelPageComponentEnum.media_text_component],
+            mediaUrl: "",
+            text: ""
+        }
+
+        this.addNewComponentInternal(landingPageMediaComponent);
+    }
     addLandingPageComponent() {
         const landingPageMediaComponent: ILandingPageMediaComponent = {
             id: this.generateComponentId(),
