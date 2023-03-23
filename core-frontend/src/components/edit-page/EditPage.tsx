@@ -107,7 +107,6 @@ class EditPage extends React.Component<IProps, IState>{
              index = i;
             return component.id !== c.id
         });
-        debugger;
         const upDownModifier = up ? -1 : 1;
         newArr.splice(index + upDownModifier, 0, component);
         console.log(newArr)
@@ -127,7 +126,8 @@ class EditPage extends React.Component<IProps, IState>{
             id: this.generateComponentId(),
             type: HotelPageComponentEnum[HotelPageComponentEnum.media_text_component],
             mediaUrl: "",
-            text: ""
+            text: "",
+            header: ""
         }
 
         this.addNewComponentInternal(landingPageMediaComponent);

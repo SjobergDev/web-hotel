@@ -6,15 +6,16 @@ interface IMediaTextProps {
 }
 
 const MediaTextDisplayComponent: React.FC<IMediaTextProps> = ({ component }) => {
-  const { mediaUrl, text } = component;
+
 
   return (
     <div className="row">
       <div className="col-md-6">
-        <img src={mediaUrl} alt="Media" className="img-fluid" />
+        <img src={component.mediaUrl} alt="Media" className="img-fluid" />
       </div>
       <div className="col-md-6">
-        <p>{text}</p>
+        <h3>{component.header}</h3>
+        <p>{component.text}</p>
       </div>
     </div>
   );

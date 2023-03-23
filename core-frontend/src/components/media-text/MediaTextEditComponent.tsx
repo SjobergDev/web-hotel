@@ -1,7 +1,7 @@
 import React, { MouseEventHandler } from "react";
 import './../../App.scss';
 import { IHotelPageComponent } from "../../model/HotelPageComponent";
-import { IMediaTextComponent as IState} from "../../model/MediaTextComponent";
+import { IMediaTextComponent as IState } from "../../model/MediaTextComponent";
 
 interface IProps {
     component: IHotelPageComponent
@@ -21,15 +21,20 @@ class MediaTextEditComponent extends React.Component<IProps, IState>{
 
 
                 <form className="form-group">
+                <div className="form-group">
+                        <label htmlFor="password">Header</label>
+                        <input className="form-control" type="text" id="header" name="header" placeholder="Your awsome header" value={this.state?.header} onChange={this.handleChange.bind(this)} />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="password">Text</label>
+                        <input className="form-control" type="text" id="text" name="text" placeholder="Insert text here" value={this.state?.text} onChange={this.handleChange.bind(this)} />
+                    </div>
                     <div className="form-group">
                         <label htmlFor="username">Media Url:</label>
                         <input className="form-control" type="text" id="mediaUrl" name="mediaUrl" placeholder="URL" value={this.state?.mediaUrl} onChange={this.handleChange.bind(this)} />
 
                     </div>
-                    <div className="form-group">
-                        <label htmlFor="password">Text</label>
-                        <input className="form-control" type="text" id="text" name="text" placeholder="name@example.com" value={this.state?.text} onChange={this.handleChange.bind(this)} />
-                    </div>
+                 
                 </form>
 
                 <button className="btn btn-secondary" onClick={this.handleOnSave.bind(this)}>Save changes</button>
