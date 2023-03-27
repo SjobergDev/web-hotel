@@ -8,7 +8,8 @@
 }
 
 .component-container{
-  @extend .p-4;
+  //@extend .p-4;
+  padding: 40px 0px;
   @extend .mt-4;
   @extend .mb-4;
 }

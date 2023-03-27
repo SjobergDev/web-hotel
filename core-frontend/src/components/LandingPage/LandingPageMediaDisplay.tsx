@@ -16,7 +16,7 @@ class LandingPageMediaDisplay extends React.Component<IProps, IState>{
 
         return (
             <div className="img-wrapper d-flex align-items-center justify-content-center" style={{ backgroundImage: 'url("' + this.state?.landingPageUrl + '")' }}>
-                <div>
+                <div className="container text-center">
                     <h1 className="image-text">TEMP NAME NEED TO ADD TO MODEL</h1>
                 </div>
             </div>)
