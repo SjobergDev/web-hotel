@@ -30,11 +30,13 @@ class MediaTextEditComponent extends React.Component<IProps, IState>{
                         <input className="form-control" type="text" id="text" name="text" placeholder="Insert text here" value={this.state?.text} onChange={this.handleChange.bind(this)} />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="username">Media Url:</label>
+                        <label htmlFor="mediaUrl">Media Url:</label>
                         <input className="form-control" type="text" id="mediaUrl" name="mediaUrl" placeholder="URL" value={this.state?.mediaUrl} onChange={this.handleChange.bind(this)} />
-
                     </div>
-                 
+                    <div className="form-group">
+                        <label htmlFor="mediaMaxHeight">Max height</label>
+                        <input className="form-control" type="number" id="mediaMaxHeight" name="mediaMaxHeight" placeholder="Max height in PX" value={this.state?.mediaMaxHeight} onChange={this.handleChange.bind(this)} />
+                    </div>
                 </form>
 
                 <button className="btn btn-secondary" onClick={this.handleOnSave.bind(this)}>Save changes</button>

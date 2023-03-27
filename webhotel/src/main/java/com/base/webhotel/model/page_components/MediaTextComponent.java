@@ -8,4 +8,6 @@ public class MediaTextComponent extends HotelPageComponent {
     private String mediaUrl;
     private String text;
     private String header;
+
+    private int mediaMaxHeight;
 }

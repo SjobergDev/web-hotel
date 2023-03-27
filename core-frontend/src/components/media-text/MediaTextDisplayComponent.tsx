@@ -11,7 +11,7 @@ const MediaTextDisplayComponent: React.FC<IMediaTextProps> = ({ component }) => 
   return (
     <div className="row">
       <div className="col-md-6">
-        <img src={component.mediaUrl} alt="Media" className="img-fluid" />
+        <img src={component.mediaUrl} style={{maxHeight: component.mediaMaxHeight}} alt="Media" className="img-fluid" />
       </div>
       <div className="col-md-6">
         <h3>{component.header}</h3>

@@ -1,7 +1,8 @@
 import { IHotelPageComponent } from "./HotelPageComponent";
 
 export interface IMediaTextComponent extends IHotelPageComponent{
-    mediaUrl: string;
+    mediaUrl: string,
     text: string,
-    header: string
+    header: string,
+    mediaMaxHeight?: number
 }
