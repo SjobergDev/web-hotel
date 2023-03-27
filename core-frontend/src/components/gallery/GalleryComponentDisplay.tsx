@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { IGalleryComponent } from './../../model/GalleryComponent';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import './GalleryComponentDisplay.scss'
+import SectionHeader from '../general/SectionHeader';
 
 interface IPropsGallery {
     component: IGalleryComponent;
@@ -27,7 +28,7 @@ const GalleryComponentDisplay: React.FC<IPropsGallery> = ({ component }) => {
     return (
 
             <Row>
-                <Col xs={12}><h1>Gallery</h1></Col>
+                <SectionHeader text="Gallery"></SectionHeader>
                 {visibleImageUrls.map((imageUrl, index) => (
                     <Col xs={12} md={6} key={index}>
                         <div key={index} className='carousel-image m-1' style={{ maxHeight: component.maxImageHeight }}>

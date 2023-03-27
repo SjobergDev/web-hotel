@@ -2,6 +2,7 @@ import React from 'react';
 import { ITestimonial, ITestimonialsComponent } from '../../model/Testimonials';
 import Flag from 'react-world-flags';
 import './TestimonialDisplay.scss';
+import SectionHeader from '../general/SectionHeader';
 
 interface IProps {
   component: ITestimonialsComponent
@@ -10,7 +11,7 @@ interface IProps {
 const TestimonialDisplay: React.FC<IProps> = ({ component }) => {
   return (
     <div className="row g-4">
-      <div className='col-xs-12'><h1>Client testimonials</h1></div>
+      <SectionHeader text="Client testimonials"></SectionHeader>
       
       {component.testimonials.map((testimonial) => (
 
