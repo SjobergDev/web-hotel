@@ -1,0 +1,11 @@
+@import './../../App.scss';
+.carousel-image{
+    padding: 0px !important;
+    @extend .rounded;
+    overflow: hidden;
+}
+.img-cover{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}

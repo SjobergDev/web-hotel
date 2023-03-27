@@ -9,6 +9,8 @@ import TestimonialDisplay from "../Testimonial/TestimonialDisplay";
 import './../../App.scss'
 import MediaTextDisplayComponent from "../media-text/MediaTextDisplayComponent";
 import { IMediaTextComponent } from "../../model/MediaTextComponent";
+import { IGalleryComponent } from "../../model/GalleryComponent";
+import GalleryComponentDisplay from "../gallery/GalleryComponentDisplay";
 
 interface IProps{
     id: string
@@ -39,6 +41,8 @@ class DynamicPage extends React.Component<IProps, IState>{
                         return <div className="component-container container"><TestimonialDisplay component={comp as ITestimonialsComponent}/></div>
                     }case HotelPageComponentEnum[HotelPageComponentEnum.media_text_component]: {
                         return <div className="component-container container"><MediaTextDisplayComponent component={comp as IMediaTextComponent}/></div>
+                    }case HotelPageComponentEnum[HotelPageComponentEnum.gallery_component]: {
+                        return <div className="component-container container"><GalleryComponentDisplay component={comp as IGalleryComponent}/></div>
                     }
                     default: {
                         return <h1>cant find component type {comp.type}</h1>

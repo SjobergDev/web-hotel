@@ -9,6 +9,9 @@ import { ILandingPageMediaComponent } from "../../model/LandingPageMediaComponen
 import LandingPageMediaEdit from "../LandingPage/LandingPageMediaEdit";
 import { IMediaTextComponent } from "../../model/MediaTextComponent";
 import MediaTextEditComponent from "../media-text/MediaTextEditComponent";
+import GalleryEdit from "../gallery/GalleryComponentEdit";
+import GalleryComponentEdit from "../gallery/GalleryComponentEdit";
+import { IGalleryComponent } from "../../model/GalleryComponent";
 
 
 
@@ -40,7 +43,7 @@ class EditPage extends React.Component<IProps, IState>{
                 <button onClick={this.addTestimonialComponent.bind(this)} className="btn btn-primary btn-lg"> Add testimonial component</button>
                 <button onClick={this.addLandingPageComponent.bind(this)} className="btn btn-primary btn-lg"> Add landing page component</button>
                 <button onClick={this.addMediaTextComponent.bind(this)} className="btn btn-primary btn-lg"> Add media text component</button>
-
+                <button onClick={this.addGalleryComponent.bind(this)} className="btn btn-primary btn-lg"> Add gallery component</button>
                 {this.state.components.map((component) => {
 
                     switch (component.type) {
@@ -68,7 +71,15 @@ class EditPage extends React.Component<IProps, IState>{
                                 </HotelPageEditComponentWrapper>
                             )
 
-                        } default: {
+                        }case HotelPageComponentEnum[HotelPageComponentEnum.gallery_component]: {
+                            return (
+                                <HotelPageEditComponentWrapper handleMove={this.handleComponentMove.bind(this)} key={component.id} component={component}
+                                    handleDelete={this.handleComponentRemoved.bind(this)} handleEdit={this.handleComponentEdited.bind(this)}  >
+                                    <GalleryComponentEdit component={component as IGalleryComponent} handleEdit={this.handleComponentEdited.bind(this)} />
+                                </HotelPageEditComponentWrapper>
+                            )
+
+                        }  default: {
                             return <h1>No component found</h1>
                         }
                     }
@@ -131,6 +142,17 @@ class EditPage extends React.Component<IProps, IState>{
         }
 
         this.addNewComponentInternal(landingPageMediaComponent);
+    }
+    addGalleryComponent(){
+        const galleryComponent: IGalleryComponent = {
+            id: this.generateComponentId(),
+            type: HotelPageComponentEnum[HotelPageComponentEnum.gallery_component],
+            imageUrls: [],
+            maxImageHeight: 2000,
+            imagesToDisplay: 2
+        }
+
+        this.addNewComponentInternal(galleryComponent);
     }
     addLandingPageComponent() {
         const landingPageMediaComponent: ILandingPageMediaComponent = {

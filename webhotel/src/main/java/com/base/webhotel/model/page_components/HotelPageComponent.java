@@ -14,7 +14,8 @@ import lombok.Data;
 @JsonSubTypes({ 
   @Type(value = TestimonialComponent.class, name = "testimonial_component"),
   @Type(value = LandingPageMediaComponent.class, name = "landing_page_media_component"),
-  @Type(value = MediaTextComponent.class, name = "media_text_component")
+  @Type(value = MediaTextComponent.class, name = "media_text_component"),
+  @Type(value = GalleryComponent.class, name = "gallery_component")
 })
 @Data
 public abstract class HotelPageComponent {

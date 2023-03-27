@@ -5,7 +5,8 @@ export interface IHotelPageComponent{
 export enum HotelPageComponentEnum{
     testimonial_component,
     landing_page_media_component,
-    media_text_component
+    media_text_component,
+    gallery_component
 }
 
 export interface IHotelPage{
