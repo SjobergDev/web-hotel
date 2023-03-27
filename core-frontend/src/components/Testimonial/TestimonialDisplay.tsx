@@ -9,11 +9,13 @@ interface IProps {
 
 const TestimonialDisplay: React.FC<IProps> = ({ component }) => {
   return (
-    <div className="row row-cols-1 row-cols-md-3 g-4">
+    <div className="row g-4">
+      <div className='col-xs-12'><h1>Client testimonials</h1></div>
+      
       {component.testimonials.map((testimonial) => (
 
 
-        <div key={testimonial.id} className="col">
+        <div key={testimonial.id} className="col-xs-12 col-sm-6 col-md-4">
           <div className="card h-100 shadow">
 
             <div className="card-body">
