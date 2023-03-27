@@ -3,6 +3,7 @@ import { IGalleryComponent } from './../../model/GalleryComponent';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import './GalleryComponentDisplay.scss'
 import SectionHeader from '../general/SectionHeader';
+import SectionSubeader from '../general/SectionSubheader';
 
 interface IPropsGallery {
     component: IGalleryComponent;
@@ -28,7 +29,7 @@ const GalleryComponentDisplay: React.FC<IPropsGallery> = ({ component }) => {
     return (
 
             <Row>
-                <SectionHeader text="Gallery"></SectionHeader>
+                <SectionHeader header="Gallery" subHeader='Rio is a city sprawling with amazing views'></SectionHeader>
                 {visibleImageUrls.map((imageUrl, index) => (
                     <Col xs={12} md={6} key={index}>
                         <div key={index} className='carousel-image m-1' style={{ maxHeight: component.maxImageHeight }}>

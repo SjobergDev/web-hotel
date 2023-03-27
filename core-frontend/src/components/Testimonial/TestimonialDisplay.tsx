@@ -11,7 +11,7 @@ interface IProps {
 const TestimonialDisplay: React.FC<IProps> = ({ component }) => {
   return (
     <div className="row g-4">
-      <SectionHeader text="Client testimonials"></SectionHeader>
+      <SectionHeader header="Client testimonials"></SectionHeader>
       
       {component.testimonials.map((testimonial) => (
 

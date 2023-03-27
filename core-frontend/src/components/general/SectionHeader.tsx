@@ -4,19 +4,19 @@ import './SectionHeader.scss'
 
 
 interface IProps{
-  text: string
+  header: string,
+  subHeader?: string
 }
-const SectionHeader : React.FC<IProps> = ({text}) => {
+const SectionHeader : React.FC<IProps> = ({header,subHeader}) => {
   return (
-    <div className="section-header">
-      <h1 className="section-header__text">{text}</h1>
-      <div className="section-header__line"></div>
+    <div className="section-header-wrapper">
+      <h1 className="section-header-text">{header}
+      <div className="section-header-line"></div>
+      </h1>
+      
+      { subHeader ? <h5 className="sub-header-text">{subHeader}</h5> : ""}
+      
     </div>
   );
 };
-
-SectionHeader.propTypes = {
-  text: PropTypes.string.isRequired,
-};
-
 export default SectionHeader;

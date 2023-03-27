@@ -1,20 +1,28 @@
 @import './../../App.scss';
-.section-header {
-  margin-bottom: 2rem;
-  position: relative;
-}
 
-.section-header__text {
+
+.section-header-wrapper {
+    margin-bottom: 2rem;
+    
   color: $primary;
   font-weight: bold;
-  margin-bottom: 30px;
+  
+  text-align: center;
+}
+.section-header-text{
+    margin-bottom: 35px;
+    position: relative;
+    
+}
+.sub-header-text{
+    color: $primary;
 }
 
-.section-header__line {
+.section-header-line {
   background-color: $primary;
   height: 3px;
-  bottom: 10px;
-  left: calc(50vw - 130px);
+  bottom: -20px;
+  left: calc(50vw - 140px);
   position: absolute;
   width: 120px;
 }
