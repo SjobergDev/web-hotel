@@ -4,7 +4,7 @@ import './SectionHeader.scss'
 
 
 interface IProps{
-  header: string,
+  header?: string,
   subHeader?: string
 }
 const SectionHeader : React.FC<IProps> = ({header,subHeader}) => {

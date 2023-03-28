@@ -29,6 +29,11 @@ class GalleryComponentEdit extends React.Component<IProps, IState> {
       this.setState({ maxImageHeight: parseInt(value, 10) });
     }else if (name === "imagesToDisplay") {
         this.setState({ imagesToDisplay: parseInt(value, 10) });
+      }else{
+        this.setState({
+          ...this.state,
+          [name]: value
+        })
       }
   };
 

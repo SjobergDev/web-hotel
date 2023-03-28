@@ -12,6 +12,9 @@
 .section-header-text{
     margin-bottom: 35px;
     position: relative;
+    display: flex;
+    width: 100%;
+    justify-content: center;
     
 }
 .sub-header-text{
@@ -22,7 +25,6 @@
   background-color: $primary;
   height: 3px;
   bottom: -20px;
-  left: calc(50vw - 140px);
   position: absolute;
   width: 120px;
 }
