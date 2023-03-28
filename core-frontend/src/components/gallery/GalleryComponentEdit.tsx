@@ -1,5 +1,6 @@
 import React from "react";
 import { IGalleryComponent, IGalleryComponent as IState } from "../../model/GalleryComponent";
+import GeneralValuesEditComponent from "../edit-page/GeneralValuesEditComponent";
 
 interface IProps {
   component: IGalleryComponent;
@@ -55,9 +56,11 @@ class GalleryComponentEdit extends React.Component<IProps, IState> {
 
     return (
       <div>
-        <h1>Edit the gallery component</h1>
+        <h1>Edit the gallery</h1>
+        <GeneralValuesEditComponent component={{...this.state}} handleChange={this.handleChange.bind(this)}></GeneralValuesEditComponent>
         {imageUrls.map((url, index) => (
           <div key={`imageUrl${index}`}>
+           <label>Image url {index + 1}</label>
             <input
               className="form-control"
               type="text"

@@ -2,6 +2,7 @@ import React, { MouseEventHandler } from "react";
 import './../../App.scss';
 import { IHotelPageComponent } from "../../model/HotelPageComponent";
 import { ITestimonial, ITestimonialsComponent as IState, ITestimonialsComponent } from "../../model/Testimonials";
+import GeneralValuesEditComponent from "../edit-page/GeneralValuesEditComponent";
 
 interface IProps {
     testimonialComponent: IHotelPageComponent
@@ -18,9 +19,10 @@ class TestimonialEdit extends React.Component<IProps, IState>{
         return (
             <div>
                 <h3>Testimonials</h3>
-
+                <GeneralValuesEditComponent component={{ ...this.state }} handleChange={this.handleChange.bind(this)}></GeneralValuesEditComponent>
                 {this.state?.testimonials.map((testimonial, index) => {
                     return <div>
+                        
                         <form className="form-group" id={index + ""}>
                             <div className="form-group">
                                 <label htmlFor="username">Name:</label>
@@ -47,21 +49,21 @@ class TestimonialEdit extends React.Component<IProps, IState>{
             </div>
         )
     }
-    
+
     handleOnAdd(): MouseEventHandler<HTMLButtonElement> | void {
-        
+
         const newTestimonial: ITestimonial = {
             id: new Date().getTime() + "",
-            country:  "",
+            country: "",
             name: "",
             rating: 10,
             testimonial: ""
 
         }
-        
+
         this.setState({
             ...this.state,
-            testimonials : this.state.testimonials.concat(newTestimonial)
+            testimonials: this.state.testimonials.concat(newTestimonial)
         })
     }
     handleOnSave(): MouseEventHandler<HTMLButtonElement> | void {
@@ -69,19 +71,30 @@ class TestimonialEdit extends React.Component<IProps, IState>{
     }
     handleChange(evt: any) {
         const value = evt.target.value;
-        const testimonialIndex: number = parseInt(evt.target.form.id);
-        this.setState({
-            ...this.state,
-            testimonials: this.state.testimonials.map((testimonial, index) => {
-                if (index == testimonialIndex) {
-                    testimonial = {
-                        ...testimonial,
-                        [evt.target.name]: value
+
+        //The values for the generic fields such as heading dont have a index
+        const testimonialIndex: number = !!evt.target?.form?.id || evt.target?.form?.id === "0" ? parseInt(evt.target.form.id) : -1;
+        if (testimonialIndex > -1) {
+
+
+            this.setState({
+                ...this.state,
+                testimonials: this.state.testimonials.map((testimonial, index) => {
+                    if (index == testimonialIndex) {
+                        testimonial = {
+                            ...testimonial,
+                            [evt.target.name]: value
+                        }
                     }
-                }
-                return testimonial
+                    return testimonial
+                })
             })
-        })
+        }else{
+            this.setState({
+                ...this.state,
+                [evt.target.name]: value
+            })
+        }
         /*const temp = {
             ...this.state.testimonials[0],
             [evt.target.name]: value

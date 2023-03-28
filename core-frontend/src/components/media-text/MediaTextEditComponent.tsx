@@ -2,6 +2,7 @@ import React, { MouseEventHandler } from "react";
 import './../../App.scss';
 import { IHotelPageComponent } from "../../model/HotelPageComponent";
 import { IMediaTextComponent as IState } from "../../model/MediaTextComponent";
+import GeneralValuesEditComponent from "../edit-page/GeneralValuesEditComponent";
 
 interface IProps {
     component: IHotelPageComponent
@@ -19,7 +20,7 @@ class MediaTextEditComponent extends React.Component<IProps, IState>{
             <div>
                 <h3>Media Text Component</h3>
 
-
+                <GeneralValuesEditComponent component={{ ...this.state }} handleChange={this.handleChange.bind(this)}></GeneralValuesEditComponent>
                 <form className="form-group">
                 <div className="form-group">
                         <label htmlFor="password">Header</label>
