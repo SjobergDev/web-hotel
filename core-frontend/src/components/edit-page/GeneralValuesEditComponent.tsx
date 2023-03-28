@@ -1,10 +1,6 @@
 import React from "react";
 import { IHotelPageComponent } from "../../model/HotelPageComponent";
 
-interface IState {
-
-}
-
 interface IProps{
     component: IHotelPageComponent,
     handleChange: (evt: any) => void,

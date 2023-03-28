@@ -1,5 +1,4 @@
 import React from "react";
-import axios from 'axios';
 import CustomAxiosHttp from "../../services/CustomAxiosHttp";
 import { HotelPageComponentEnum, IHotelPage, IHotelPage as IState} from "../../model/HotelPageComponent";
 import LandingPageMediaDisplay from "../LandingPage/LandingPageMediaDisplay";

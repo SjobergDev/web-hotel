@@ -1,7 +1,7 @@
 import React, { MouseEventHandler } from "react";
 import './../../App.scss';
 import { IHotelPageComponent } from "../../model/HotelPageComponent";
-import { ITestimonial, ITestimonialsComponent as IState, ITestimonialsComponent } from "../../model/Testimonials";
+import { ITestimonial, ITestimonialsComponent as IState } from "../../model/Testimonials";
 import GeneralValuesEditComponent from "../edit-page/GeneralValuesEditComponent";
 
 interface IProps {
@@ -79,7 +79,7 @@ class TestimonialEdit extends React.Component<IProps, IState>{
             this.setState({
                 ...this.state,
                 testimonials: this.state.testimonials.map((testimonial, index) => {
-                    if (index == testimonialIndex) {
+                    if (index === testimonialIndex) {
                         testimonial = {
                             ...testimonial,
                             [evt.target.name]: value

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ITestimonial, ITestimonialsComponent } from '../../model/Testimonials';
+import { ITestimonialsComponent } from '../../model/Testimonials';
 import Flag from 'react-world-flags';
 import './TestimonialDisplay.scss';
 import SectionHeader from '../general/SectionHeader';

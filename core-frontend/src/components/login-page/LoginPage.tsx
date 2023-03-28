@@ -53,7 +53,6 @@ class LoginPage extends React.Component<IProps, IState>{
         )
     }
     handleSubmit2(event: any) {
-        let url = 'api/user/login';
         let username = this.state.username;
         let password = this.state.password;
         CustomAxiosHttp.loginWithBasicAuth(username,password).then(res => {

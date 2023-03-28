@@ -15,7 +15,7 @@ class CreatePage extends React.Component<IProps, IState>{
 
     constructor(props: IProps) {
         super(props);
-        this.state = {name: '', landingPageUrl: ''}
+        this.state = { name: '', landingPageUrl: '' }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -39,11 +39,10 @@ class CreatePage extends React.Component<IProps, IState>{
     }
 
     handleSubmit(event: any) {
-        const response =
-            axios.post("api/hotel-pages/", this.state).then(result => {
-                console.log(result)
-            }).catch(e => {
-            })
+        axios.post("api/hotel-pages/", this.state).then(result => {
+            console.log(result)
+        }).catch(e => {
+        });
 
 
     }

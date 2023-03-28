@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { IGalleryComponent } from './../../model/GalleryComponent';
-import { Container, Row, Col, Button } from 'react-bootstrap';
+import { Row, Col, Button } from 'react-bootstrap';
 import './GalleryComponentDisplay.scss'
 import SectionHeader from '../general/SectionHeader';
 
