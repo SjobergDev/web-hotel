@@ -31,12 +31,12 @@ const GalleryComponentDisplay: React.FC<IPropsGallery> = ({ component }) => {
             <Row>
                 <SectionHeader header={component.heading} subHeader={component.subHeading}></SectionHeader>
                 {visibleImageUrls.map((imageUrl, index) => (
-                    <Col xs={12} md={6} key={index}>
+                    <Col xs={12} md={12/component.imagesToDisplay} key={index}>
                         <div key={index} className='carousel-image m-1' style={{ maxHeight: component.maxImageHeight }}>
                             <img
                                 src={imageUrl}
                                 alt=""
-                                className="img-fluid"
+                                className="img-cover"
                             />
                         </div>
 

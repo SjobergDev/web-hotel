@@ -119,10 +119,14 @@ class EditPage extends React.Component<IProps, IState>{
   
     private handleComponentMove(component: IHotelPageComponent, up: boolean) {
         let index = 0;
+
+        index = this.state.components.findIndex(c => {
+            return c.id === component.id;
+        })
         const newArr = this.state.components.filter((c,i) => {
-             index = i;
             return component.id !== c.id
         });
+        
         const upDownModifier = up ? -1 : 1;
         newArr.splice(index + upDownModifier, 0, component);
         console.log(newArr)
