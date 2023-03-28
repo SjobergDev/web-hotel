@@ -3,7 +3,6 @@ import { IGalleryComponent } from './../../model/GalleryComponent';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import './GalleryComponentDisplay.scss'
 import SectionHeader from '../general/SectionHeader';
-import SectionSubeader from '../general/SectionSubheader';
 
 interface IPropsGallery {
     component: IGalleryComponent;
@@ -14,12 +13,16 @@ const GalleryComponentDisplay: React.FC<IPropsGallery> = ({ component }) => {
     const handlePrevClick = () => {
         if (startIndex > 0) {
             setStartIndex(startIndex - 1);
+        }else{
+            setStartIndex(component.imageUrls.length - 2);
         }
     };
 
     const handleNextClick = () => {
-        if (startIndex + 1 < component.imageUrls.length) {
+        if (startIndex + component.imagesToDisplay < component.imageUrls.length) {
             setStartIndex(startIndex + 1);
+        }else{
+            setStartIndex(0);
         }
     };
 
@@ -43,19 +46,18 @@ const GalleryComponentDisplay: React.FC<IPropsGallery> = ({ component }) => {
                     </Col>
                 ))}
                 <Col className="d-flex justify-content-center align-items-center">
-                    {startIndex > 0 && (
-                        <Button variant="primary" onClick={handlePrevClick}>
-                            Prev
-                        </Button>
-                    )}
+                    <Button variant="primary" onClick={handlePrevClick}>
+                        Prev
+                    </Button>
+                
                 </Col>
 
                 <Col className="d-flex justify-content-center align-items-center">
-                    {startIndex + component.imagesToDisplay < component.imageUrls.length && (
+                    
                         <Button variant="primary" onClick={handleNextClick}>
                             Next
                         </Button>
-                    )}
+                    
                 </Col>
 
             </Row>
