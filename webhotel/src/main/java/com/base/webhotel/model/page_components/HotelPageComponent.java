@@ -21,5 +21,7 @@ import lombok.Data;
 public abstract class HotelPageComponent {
     
     private String id;
+    private String heading;
+    private String subHeading;
 
 }

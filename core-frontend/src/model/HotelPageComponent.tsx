@@ -1,6 +1,8 @@
 export interface IHotelPageComponent{
     id: string
-    type: string
+    type: string,
+    heading?: string,
+    subHeading?: string
 }
 export enum HotelPageComponentEnum{
     testimonial_component,

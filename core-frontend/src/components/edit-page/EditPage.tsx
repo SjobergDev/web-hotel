@@ -18,6 +18,11 @@ import { IGalleryComponent } from "../../model/GalleryComponent";
 interface IProps {
 
 }
+interface GenericProps{
+    id: string,
+    heading: string,
+    subHeading: string
+}
 class EditPage extends React.Component<IProps, IState>{
 
     constructor(props: IProps) {
@@ -154,9 +159,15 @@ class EditPage extends React.Component<IProps, IState>{
 
         this.addNewComponentInternal(galleryComponent);
     }
+    generateGenericComponentProps(): GenericProps {
+        return{id:  this.generateComponentId(),
+        heading: '',
+        subHeading: ''
+                }
+    }
     addLandingPageComponent() {
         const landingPageMediaComponent: ILandingPageMediaComponent = {
-            id: this.generateComponentId(),
+            ...this.generateGenericComponentProps(),
             type: HotelPageComponentEnum[HotelPageComponentEnum.landing_page_media_component],
             landingPageUrl: ''
         }
