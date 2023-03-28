@@ -1,5 +1,5 @@
 import React from 'react';
-import SectionHeader from '../general/SectionHeader';
+import HalfPageSectionHeader from '../general/HalfPageSectionHeader';
 import { IMediaTextComponent } from './../../model/MediaTextComponent';
 
 interface IMediaTextProps {
@@ -15,7 +15,7 @@ const MediaTextDisplayComponent: React.FC<IMediaTextProps> = ({ component }) => 
         <img src={component.mediaUrl} style={{maxHeight: component.mediaMaxHeight}} alt="Media" className="img-fluid" />
       </div>
       <div className="col-md-6">
-        <h3>TODO fix half page header</h3>
+        <HalfPageSectionHeader header={component.header} subHeader={component.subHeading}/>
         <p>{component.text}</p>
       </div>
     </div>
