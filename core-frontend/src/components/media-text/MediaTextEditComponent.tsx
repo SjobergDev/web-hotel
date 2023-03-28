@@ -18,9 +18,7 @@ class MediaTextEditComponent extends React.Component<IProps, IState>{
     render(): React.ReactNode {
         return (
             <div>
-                <h3>Media Text Component</h3>
-
-                <GeneralValuesEditComponent component={{ ...this.state }} handleChange={this.handleChange.bind(this)}></GeneralValuesEditComponent>
+                <GeneralValuesEditComponent editComponentHeaderText="Media Text Component" component={{ ...this.state }} handleChange={this.handleChange.bind(this)}></GeneralValuesEditComponent>
                 <form className="form-group">
                 <div className="form-group">
                         <label htmlFor="password">Header</label>

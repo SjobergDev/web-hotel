@@ -2,27 +2,21 @@ import React from "react";
 import CustomAxiosHttp from "../../services/CustomAxiosHttp";
 import './../../App.scss';
 import { HotelPageComponentEnum, IHotelPage as IState, IHotelPageComponent } from "../../model/HotelPageComponent";
-import { ITestimonialsComponent } from "../../model/Testimonials";
 import TestimonialEdit from "../Testimonial/TestimonialEdit";
 import HotelPageEditComponentWrapper from "../wrapper/HotelPageEditComponentWrapper";
-import { ILandingPageMediaComponent } from "../../model/LandingPageMediaComponent";
 import LandingPageMediaEdit from "../LandingPage/LandingPageMediaEdit";
-import { IMediaTextComponent } from "../../model/MediaTextComponent";
 import MediaTextEditComponent from "../media-text/MediaTextEditComponent";
-import GalleryEdit from "../gallery/GalleryComponentEdit";
 import GalleryComponentEdit from "../gallery/GalleryComponentEdit";
 import { IGalleryComponent } from "../../model/GalleryComponent";
+import AddNewPageComponent from "./AddNewPageComponent";
+import './EditPage.scss';
 
 
 
 interface IProps {
 
 }
-interface GenericProps{
-    id: string,
-    heading: string,
-    subHeading: string
-}
+
 class EditPage extends React.Component<IProps, IState>{
 
     constructor(props: IProps) {
@@ -41,14 +35,10 @@ class EditPage extends React.Component<IProps, IState>{
     render() {
 
         return (
-            <div className="container">
+            <div className="container component-container">
                 <h1 className="text-center"> Edit {this?.state?.name}</h1>
-                <button onClick={this.handleSave.bind(this)}>Save</button>
 
-                <button onClick={this.addTestimonialComponent.bind(this)} className="btn btn-primary btn-lg"> Add testimonial component</button>
-                <button onClick={this.addLandingPageComponent.bind(this)} className="btn btn-primary btn-lg"> Add landing page component</button>
-                <button onClick={this.addMediaTextComponent.bind(this)} className="btn btn-primary btn-lg"> Add media text component</button>
-                <button onClick={this.addGalleryComponent.bind(this)} className="btn btn-primary btn-lg"> Add gallery component</button>
+
                 {this.state.components.map((component) => {
 
                     switch (component.type) {
@@ -60,7 +50,7 @@ class EditPage extends React.Component<IProps, IState>{
                                 </HotelPageEditComponentWrapper>
                             )
 
-                        }case HotelPageComponentEnum[HotelPageComponentEnum.landing_page_media_component]: {
+                        } case HotelPageComponentEnum[HotelPageComponentEnum.landing_page_media_component]: {
                             return (
                                 <HotelPageEditComponentWrapper handleMove={this.handleComponentMove.bind(this)} key={component.id} component={component}
                                     handleDelete={this.handleComponentRemoved.bind(this)} handleEdit={this.handleComponentEdited.bind(this)}  >
@@ -68,7 +58,7 @@ class EditPage extends React.Component<IProps, IState>{
                                 </HotelPageEditComponentWrapper>
                             )
 
-                        }case HotelPageComponentEnum[HotelPageComponentEnum.media_text_component]: {
+                        } case HotelPageComponentEnum[HotelPageComponentEnum.media_text_component]: {
                             return (
                                 <HotelPageEditComponentWrapper handleMove={this.handleComponentMove.bind(this)} key={component.id} component={component}
                                     handleDelete={this.handleComponentRemoved.bind(this)} handleEdit={this.handleComponentEdited.bind(this)}  >
@@ -76,7 +66,7 @@ class EditPage extends React.Component<IProps, IState>{
                                 </HotelPageEditComponentWrapper>
                             )
 
-                        }case HotelPageComponentEnum[HotelPageComponentEnum.gallery_component]: {
+                        } case HotelPageComponentEnum[HotelPageComponentEnum.gallery_component]: {
                             return (
                                 <HotelPageEditComponentWrapper handleMove={this.handleComponentMove.bind(this)} key={component.id} component={component}
                                     handleDelete={this.handleComponentRemoved.bind(this)} handleEdit={this.handleComponentEdited.bind(this)}  >
@@ -84,11 +74,15 @@ class EditPage extends React.Component<IProps, IState>{
                                 </HotelPageEditComponentWrapper>
                             )
 
-                        }  default: {
+                        } default: {
                             return <h1>No component found</h1>
                         }
                     }
                 })}
+                <AddNewPageComponent addNewComponent={this.addNewComponentInternal.bind(this)} />
+                <div style={{ width: "100%" }}>
+                    <button className={"save-changes-btn btn btn-success"} onClick={this.handleSave.bind(this)}>Save Changes</button>
+                </div>
             </div>)
     }
     handleComponentRemoved(componentToRemove: IHotelPageComponent) {
@@ -116,17 +110,17 @@ class EditPage extends React.Component<IProps, IState>{
 
         )
     }
-  
+
     private handleComponentMove(component: IHotelPageComponent, up: boolean) {
         let index = 0;
 
         index = this.state.components.findIndex(c => {
             return c.id === component.id;
         })
-        const newArr = this.state.components.filter((c,i) => {
+        const newArr = this.state.components.filter((c, i) => {
             return component.id !== c.id
         });
-        
+
         const upDownModifier = up ? -1 : 1;
         newArr.splice(index + upDownModifier, 0, component);
         console.log(newArr)
@@ -141,59 +135,8 @@ class EditPage extends React.Component<IProps, IState>{
         this.loadUserPage();
     }
 
-    addMediaTextComponent(){
-        const landingPageMediaComponent: IMediaTextComponent = {
-            id: this.generateComponentId(),
-            type: HotelPageComponentEnum[HotelPageComponentEnum.media_text_component],
-            mediaUrl: "",
-            text: "",
-            header: ""
-        }
 
-        this.addNewComponentInternal(landingPageMediaComponent);
-    }
-    addGalleryComponent(){
-        const galleryComponent: IGalleryComponent = {
-            id: this.generateComponentId(),
-            type: HotelPageComponentEnum[HotelPageComponentEnum.gallery_component],
-            imageUrls: [],
-            maxImageHeight: 2000,
-            imagesToDisplay: 2
-        }
 
-        this.addNewComponentInternal(galleryComponent);
-    }
-    generateGenericComponentProps(): GenericProps {
-        return{id:  this.generateComponentId(),
-        heading: '',
-        subHeading: ''
-                }
-    }
-    addLandingPageComponent() {
-        const landingPageMediaComponent: ILandingPageMediaComponent = {
-            ...this.generateGenericComponentProps(),
-            type: HotelPageComponentEnum[HotelPageComponentEnum.landing_page_media_component],
-            landingPageUrl: ''
-        }
-
-        this.addNewComponentInternal(landingPageMediaComponent);
-    }
-    addTestimonialComponent() {
-        const testimonials: ITestimonialsComponent = {
-            id: this.generateComponentId(),
-            testimonials: [],
-            type: HotelPageComponentEnum[HotelPageComponentEnum.testimonial_component]
-        }
-        testimonials.testimonials.push({
-            id: 'id',
-            name: 'aron',
-            testimonial: 'This goes pretty well',
-            country: 'Colombia',
-            rating: 10
-
-        })
-        this.addNewComponentInternal(testimonials);
-    }
 
     addNewComponentInternal(component: IHotelPageComponent) {
         const newEntryArr: IHotelPageComponent[] = [];
@@ -206,9 +149,7 @@ class EditPage extends React.Component<IProps, IState>{
             }
         )
     }
-    generateComponentId() {
-        return 'ID_' + new Date().getTime();
-    }
+
     loadUserPage() {
 
         let user = JSON.parse(localStorage.getItem("user") + "");

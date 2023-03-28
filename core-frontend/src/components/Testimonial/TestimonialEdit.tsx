@@ -18,8 +18,7 @@ class TestimonialEdit extends React.Component<IProps, IState>{
     render(): React.ReactNode {
         return (
             <div>
-                <h3>Testimonials</h3>
-                <GeneralValuesEditComponent component={{ ...this.state }} handleChange={this.handleChange.bind(this)}></GeneralValuesEditComponent>
+                <GeneralValuesEditComponent editComponentHeaderText="Testimonials" component={{ ...this.state }} handleChange={this.handleChange.bind(this)}></GeneralValuesEditComponent>
                 {this.state?.testimonials.map((testimonial, index) => {
                     return <div>
                         

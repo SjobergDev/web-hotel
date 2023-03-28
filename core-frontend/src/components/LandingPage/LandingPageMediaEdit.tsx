@@ -13,7 +13,7 @@ class LandingPageMediaEdit extends React.Component<IProps, IState>{
         return (
             <div>
                 <form className="form-group">
-                    <GeneralValuesEditComponent component={{...this.state}} handleChange={this.handleChange.bind(this)}></GeneralValuesEditComponent>
+                    <GeneralValuesEditComponent editComponentHeaderText="Edit landing page" component={{...this.state}} handleChange={this.handleChange.bind(this)}></GeneralValuesEditComponent>
                     <label htmlFor="landingPageUrl">Landingpage url</label>
                     <input className="form-control" type="text" id="landingPageUrl" name="landingPageUrl" placeholder="Insert media URL" value={this.state?.landingPageUrl} onChange={this.handleChange.bind(this)} />
 
