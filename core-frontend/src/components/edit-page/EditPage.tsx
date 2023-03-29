@@ -171,7 +171,6 @@ class EditPage extends React.Component<IProps, IState>{
 
 
         CustomAxiosHttp.get<any[]>(url).then(res => {
-            debugger;
             console.log(res);
             if (res?.length && res.length > 0) {
                 this.setState(
