@@ -1,7 +1,7 @@
 import React from "react";
 import CustomAxiosHttp from "../../services/CustomAxiosHttp";
 import './../../App.scss';
-import { HotelPageComponentEnum, IHotelPage as IState, IHotelPageComponent } from "../../model/HotelPageComponent";
+import { HotelPageComponentEnum, IHotelPage as IState, IHotelPageComponent, IHotelPageSettings } from "../../model/HotelPageComponent";
 import TestimonialEdit from "../Testimonial/TestimonialEdit";
 import HotelPageEditComponentWrapper from "../wrapper/HotelPageEditComponentWrapper";
 import LandingPageMediaEdit from "../LandingPage/LandingPageMediaEdit";
@@ -10,6 +10,7 @@ import GalleryComponentEdit from "../gallery/GalleryComponentEdit";
 import { IGalleryComponent } from "../../model/GalleryComponent";
 import AddNewPageComponent from "./AddNewPageComponent";
 import './EditPage.scss';
+import GeneralSettingsEditComponent from "./GeneralSettingsEditComponent";
 
 
 
@@ -24,7 +25,8 @@ class EditPage extends React.Component<IProps, IState>{
         this.state = {
             username: '',
             name: '',
-            components: []
+            components: [],
+            hotelPageSettings: {}
         };
 
 
@@ -36,6 +38,8 @@ class EditPage extends React.Component<IProps, IState>{
 
         return (
             <div className="container component-container">
+                <GeneralSettingsEditComponent handleEdit={this.handleHotelPageSettingsEdited.bind(this)} hotelPageSettings={{...this.state?.hotelPageSettings}}></GeneralSettingsEditComponent>
+
                 <h1 className="text-center"> Edit {this?.state?.name}</h1>
 
 
@@ -95,6 +99,15 @@ class EditPage extends React.Component<IProps, IState>{
             }
         )
 
+    }
+    handleHotelPageSettingsEdited(settings: IHotelPageSettings){
+        this.setState(
+            {
+                ...this.state,
+                hotelPageSettings: settings
+            }
+
+        )
     }
     handleComponentEdited(editedComponent: IHotelPageComponent) {
         this.setState(
@@ -158,7 +171,7 @@ class EditPage extends React.Component<IProps, IState>{
 
 
         CustomAxiosHttp.get<any[]>(url).then(res => {
-
+            debugger;
             console.log(res);
             if (res?.length && res.length > 0) {
                 this.setState(

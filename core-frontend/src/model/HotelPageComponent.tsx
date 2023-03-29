@@ -10,11 +10,15 @@ export enum HotelPageComponentEnum{
     media_text_component,
     gallery_component
 }
+export interface IHotelPageSettings{
+    headerColor?: string
+}
 
 export interface IHotelPage{
     
     name: string,
     username: string
     components: IHotelPageComponent[];
+    hotelPageSettings: IHotelPageSettings
 }
 export{}

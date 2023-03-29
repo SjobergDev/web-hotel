@@ -16,4 +16,5 @@ public class HotelPage {
     private String name;
     private String username;
     List<HotelPageComponent> components = new ArrayList<>();
+    private HotelPageSettings hotelPageSettings;
 }
