@@ -28,7 +28,6 @@ const GalleryComponentDisplay: React.FC<IPropsGallery> = ({ component }) => {
 
     const visibleImageUrls = component.imageUrls.slice(startIndex, startIndex + component.imagesToDisplay);
 
-    console.log(visibleImageUrls)
     return (
 
             <Row>

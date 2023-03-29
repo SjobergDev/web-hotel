@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CustomAxiosHttp from "../../services/CustomAxiosHttp";
-import { HotelPageComponentEnum, IHotelPage, IHotelPage as IState} from "../../model/HotelPageComponent";
+import { HotelPageComponentEnum, IHotelPage} from "../../model/HotelPageComponent";
 import LandingPageMediaDisplay from "../LandingPage/LandingPageMediaDisplay";
 import { ILandingPageMediaComponent } from "../../model/LandingPageMediaComponent";
 import { ITestimonialsComponent } from "../../model/Testimonials";
@@ -15,24 +15,24 @@ interface IProps{
     id: string
 }
 
-class DynamicPage extends React.Component<IProps, IState>{
+const DynamicPage:  React.FC<IProps> = ({id}) =>{
+    const [hotelPage, setHotelPage] = useState<IHotelPage>();
+    useEffect(() =>{
+        debugger;
+        initPageData();
+    }, [])
 
-    constructor(props: IProps) {
-        super(props);
-        this.setState({});
-        this.initPageData();
-    }
 
-    initPageData() {
-        CustomAxiosHttp.get<IHotelPage>("api/hotel-pages/" + this.props.id).then(result => {
-            this.setState(result);
+    const initPageData = () => {
+        CustomAxiosHttp.get<IHotelPage>("api/hotel-pages/" + id).then(result => {
+            setHotelPage(result);
         }).catch(e => {
             console.log(e);
         })
     }
-    render() {
-        return <div>
-            {this.state?.components?.map(comp => {
+    
+        return (<div>
+            {hotelPage?.components?.map(comp => {
                 switch(comp.type){
                     case HotelPageComponentEnum[HotelPageComponentEnum.landing_page_media_component]: {
                         return <LandingPageMediaDisplay component={comp as ILandingPageMediaComponent}/>
@@ -48,8 +48,8 @@ class DynamicPage extends React.Component<IProps, IState>{
                     }
                 }
             })}
-        </div>
-    }
+        </div>)
+    
 
 }
 
